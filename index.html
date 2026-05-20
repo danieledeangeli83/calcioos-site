@@ -2088,9 +2088,10 @@ if (_isMobileVP) {
 }
 
 const FRAME_COUNT = 192;
+const FRAME_VERSION = _isMobileVP ? 'v2' : 'v1';
 const FRAME_PATH = (i) => _isMobileVP
-  ? `frames/seq-mobile/frame_${String(i).padStart(3, '0')}.webp`
-  : `frames/seq/frame_${String(i).padStart(3, '0')}.webp`;
+  ? `frames/seq-mobile/frame_${String(i).padStart(3, '0')}.webp?${FRAME_VERSION}`
+  : `frames/seq/frame_${String(i).padStart(3, '0')}.webp?${FRAME_VERSION}`;
 
 const frames = new Array(FRAME_COUNT);
 const frameState = { value: 0 };
