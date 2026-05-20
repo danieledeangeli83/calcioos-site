@@ -24,13 +24,21 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;line-heig
 .btn-outline{border-color:var(--text);color:var(--text)}
 .btn-outline:hover{background:var(--text);color:#FFF}
 
-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-header .inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-header a.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:'Space Grotesk';font-weight:700;font-size:16px}
-header a.brand img{height:32px;width:auto}
-header nav{display:flex;gap:24px}
-header nav a{color:var(--text-2);font-size:14px;font-weight:500;text-decoration:none}
-header nav a:hover{color:var(--text)}
+/* nav-glass dark pill IDENTICA alla home calcioos.com */
+header.nav-glass{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(15,23,42,0.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.08);border-radius:999px;padding:10px 20px;display:flex;align-items:center;gap:28px;box-shadow:0 8px 32px rgba(0,0,0,0.30)}
+header.nav-glass .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+header.nav-glass .header-logomark{height:28px;width:auto;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4))}
+header.nav-glass .header-wordmark{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.01em}
+header.nav-glass .header-wordmark .text-cyan{color:#06A8B5}
+header.nav-glass .header-wordmark .text-red{color:#D62828}
+header.nav-glass nav{display:flex;gap:20px}
+header.nav-glass nav a{color:rgba(255,255,255,0.72);font-size:13.5px;font-weight:500;text-decoration:none;transition:color .15s ease}
+header.nav-glass nav a:hover{color:#fff}
+header.nav-glass nav a.active{color:#fff;font-weight:600}
+header.nav-glass .btn-pill{background:#fff;color:#0F172A;padding:8px 18px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;transition:all .15s ease}
+header.nav-glass .btn-pill:hover{background:#C7EEF2}
+/* spacer to compensate fixed header */
+.header-spacer{height:80px}
 
 .hero{max-width:980px;margin:0 auto;padding:80px 24px 60px;text-align:center}
 .hero .kicker{display:block;margin-bottom:16px}
@@ -67,20 +75,20 @@ footer a{color:var(--text-2);text-decoration:none}
 </head>
 <body>
 
-<header>
-  <div class="inner">
-    <a href="./" class="brand">
-      <img src="./assets/logomark-transparent.png?v=2" alt="CALCIO.OS" class="header-logomark" />
-      CALCIO.OS
-    </a>
-    <nav>
-      <a href="./#pricing">Prezzi</a>
-      <a href="./demo.html" style="color:var(--text);font-weight:600;">Demo</a>
-      <a href="./#manifesto">Manifesto</a>
-    </nav>
-    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn btn-primary">Contattami</a>
-  </div>
+<header class="nav-glass">
+  <a href="./" class="brand">
+    <img src="./assets/logomark-transparent.png?v=2" alt="" class="header-logomark" />
+    <span class="header-wordmark"><span class="text-cyan">CALCIO</span><span class="text-red">.OS</span></span>
+  </a>
+  <nav>
+    <a href="./#anime">Accademia</a>
+    <a href="./#genitori">Genitori</a>
+    <a href="./#prezzi">Prezzi</a>
+    <a href="./demo.html" class="active">Demo</a>
+  </nav>
+  <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn-pill">Contattami</a>
 </header>
+<div class="header-spacer"></div>
 
 <section class="hero">
   <span class="kicker">Demo · accademia di esempio</span>
