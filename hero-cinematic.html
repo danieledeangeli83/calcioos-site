@@ -2023,6 +2023,19 @@
 </footer>
 
 <script>
+// ============= PRIORITY 1: Preload video subito (compete con 192 WebP, deve partire prima) =============
+const preloadVideo = document.getElementById('preloadVideo');
+const _isMobileVP = window.matchMedia('(max-width: 768px)').matches;
+const _introSrc = _isMobileVP
+  ? 'assets/intro-mobile.mp4?v=2'   // 720x1280 portrait
+  : 'assets/intro-2.mp4?v=2';        // 1280x720 landscape
+const _sourceEl = document.createElement('source');
+_sourceEl.src = _introSrc;
+_sourceEl.type = 'video/mp4';
+preloadVideo.appendChild(_sourceEl);
+preloadVideo.load();
+preloadVideo.play().catch(() => {});
+
 // ============= Lenis smooth scroll =============
 const lenis = new Lenis({
   duration: 1.2,
@@ -2039,20 +2052,7 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => { lenis.raf(time * 1000); });
 gsap.ticker.lagSmoothing(0);
 
-// ============= Preload video — swap mobile/desktop dinamico =============
-const preloadVideo = document.getElementById('preloadVideo');
-const _isMobileVP = window.matchMedia('(max-width: 768px)').matches;
-const _introSrc = _isMobileVP
-  ? 'assets/intro-mobile.mp4?v=1'   // 720x1280 portrait
-  : 'assets/intro-2.mp4?v=1';        // 1280x720 landscape
-const _sourceEl = document.createElement('source');
-_sourceEl.src = _introSrc;
-_sourceEl.type = 'video/mp4';
-preloadVideo.appendChild(_sourceEl);
-preloadVideo.load();
-preloadVideo.play().catch(() => {
-  // some browsers gate autoplay even with muted; ignore — video appears on user gesture
-});
+// (preload video già inizializzato in PRIORITY 1 sopra)
 
 // ============= Canvas flipbook =============
 const canvas = document.getElementById('heroCanvas');
@@ -2092,14 +2092,17 @@ function onFrameLoad() {
   }
 }
 
-for (let i = 0; i < FRAME_COUNT; i++) {
-  const img = new Image();
-  img.decoding = 'async';
-  img.onload = onFrameLoad;
-  img.onerror = onFrameLoad;
-  img.src = FRAME_PATH(i + 1);
-  frames[i] = img;
-}
+// Delay i 192 WebP preload di 300ms per dare priorità al video intro (3.7MB vs 28MB)
+setTimeout(() => {
+  for (let i = 0; i < FRAME_COUNT; i++) {
+    const img = new Image();
+    img.decoding = 'async';
+    img.onload = onFrameLoad;
+    img.onerror = onFrameLoad;
+    img.src = FRAME_PATH(i + 1);
+    frames[i] = img;
+  }
+}, 300);
 
 function drawFrame(idx) {
   const img = frames[idx];
