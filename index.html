@@ -384,6 +384,177 @@
     display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
   }
 
+  /* PWA Mister section — mockup phone bordo campo */
+  .mister-section { position: relative; background: #050608; padding: 140px 0 160px; overflow: hidden; }
+  @media (min-width: 768px) { .mister-section { padding: 200px 0 220px; } }
+  .mister-section::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(circle 800px at 80% 30%, rgba(214,40,40,0.07) 0%, transparent 70%),
+      linear-gradient(180deg, transparent 0%, rgba(6,168,181,0.04) 60%, transparent 100%);
+  }
+  .mister-container { position: relative; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 768px) { .mister-container { padding: 0 40px; } }
+  .mister-grid { display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center; }
+  @media (min-width: 1024px) { .mister-grid { grid-template-columns: 1fr 1.05fr; gap: 80px; } }
+
+  .mister-text { opacity: 0; transform: translateY(40px); }
+  .mister-text h2 {
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: clamp(36px, 5vw, 60px); line-height: 1.05;
+    letter-spacing: -0.025em; margin: 24px 0 28px;
+    color: #fff;
+  }
+  .mister-text p.lead {
+    font-size: clamp(15px, 1.4vw, 18px); line-height: 1.6;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 36px;
+  }
+  .mister-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 32px; }
+  .mister-feat {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 16px 18px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  }
+  .mister-feat:hover { border-color: rgba(214,40,40,0.35); background: rgba(214,40,40,0.04); transform: translateY(-2px); }
+  .mister-feat-ic {
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--red);
+    background: rgba(214,40,40,0.12);
+    border: 1px solid rgba(214,40,40,0.28);
+  }
+  .mister-feat-body h5 {
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: 13.5px; line-height: 1.2; margin: 0 0 3px;
+    color: #fff;
+  }
+  .mister-feat-body p { margin: 0; font-size: 12px; line-height: 1.45; color: rgba(255,255,255,0.6); }
+
+  /* phone mockup */
+  .phone-wrap {
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1500px;
+    opacity: 0; transform: translateY(40px);
+  }
+  .phone {
+    position: relative;
+    width: 300px; aspect-ratio: 9/19.5;
+    background: #0a0b0f;
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow:
+      0 60px 120px -30px rgba(0,0,0,0.8),
+      0 30px 60px -10px rgba(214,40,40,0.18),
+      inset 0 0 0 2px rgba(255,255,255,0.06),
+      inset 0 1px 0 rgba(255,255,255,0.12);
+    transform: rotateY(-6deg) rotateX(2deg);
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .phone:hover { transform: rotateY(0deg) rotateX(0deg); }
+  @media (min-width: 768px) { .phone { width: 340px; } }
+  .phone-notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 28px;
+    background: #050608; border-radius: 16px;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, #0c0e14 0%, #0a0b10 100%);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  /* status bar */
+  .phone-sb { display: flex; justify-content: space-between; align-items: center; padding: 16px 26px 8px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #fff; }
+  .phone-sb-icons { display: flex; gap: 5px; align-items: center; }
+  .phone-sb-icons svg { width: 13px; height: 13px; }
+  /* app header */
+  .pa-header { padding: 8px 22px 14px; display: flex; align-items: center; justify-content: space-between; }
+  .pa-hl { display: flex; align-items: center; gap: 8px; }
+  .pa-livebadge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(214,40,40,0.16); border: 1px solid rgba(214,40,40,0.45);
+    border-radius: 999px; padding: 3px 9px;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red);
+  }
+  .pa-livedot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); animation: livedot 1.2s ease-in-out infinite; }
+  @keyframes livedot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .pa-timer { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 18px; color: #fff; letter-spacing: -0.01em; }
+  .pa-categ { padding: 0 22px 12px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  /* roster list */
+  .pa-roster { flex: 1; overflow-y: auto; padding: 0 16px 12px; display: flex; flex-direction: column; gap: 8px; }
+  .pa-player {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    transition: background 0.2s ease;
+  }
+  .pa-player.is-active { background: linear-gradient(90deg, rgba(214,40,40,0.18), rgba(214,40,40,0.05)); border-color: rgba(214,40,40,0.4); }
+  .pa-num {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(6,168,181,0.4), rgba(214,40,40,0.4));
+    color: #fff; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .pa-player.is-active .pa-num { background: linear-gradient(135deg, var(--red), #b71c1c); box-shadow: 0 0 16px rgba(214,40,40,0.5); }
+  .pa-pinfo { flex: 1; min-width: 0; }
+  .pa-pname { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12.5px; color: #fff; line-height: 1.2; }
+  .pa-prole { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .pa-pmin { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.78); font-weight: 600; }
+  .pa-pmin.is-hot { color: var(--red); }
+  /* voice CTA bottom */
+  .pa-voice {
+    margin: 0 16px 16px;
+    background: linear-gradient(135deg, var(--red), #a01f1f);
+    border-radius: 16px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 8px 24px -4px rgba(214,40,40,0.5);
+  }
+  .pa-voice-ic {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff;
+    animation: voicepulse 2s ease-in-out infinite;
+  }
+  @keyframes voicepulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); } 50% { box-shadow: 0 0 0 10px rgba(255,255,255,0); } }
+  .pa-voice-text { flex: 1; }
+  .pa-voice-text strong { display: block; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 13.5px; color: #fff; }
+  .pa-voice-text span { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.85); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+  /* offline badge bottom-right of phone */
+  .phone-offline-badge {
+    position: absolute; bottom: 30px; right: -16px;
+    background: rgba(6,168,181,0.12);
+    border: 1px solid rgba(6,168,181,0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    z-index: 3;
+    display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 8px 24px -8px rgba(6,168,181,0.4);
+  }
+  .phone-offline-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  @media (max-width: 640px) {
+    .phone { width: 260px; }
+    .phone-offline-badge { right: 0; bottom: 20px; font-size: 9px; padding: 6px 10px; }
+  }
+
   /* magnetic buttons */
   .magnet-btn {
     position: relative; isolation: isolate; cursor: pointer;
@@ -740,6 +911,136 @@
   </div>
 </section>
 
+<!-- PWA MISTER SECTION — Quick Mode bordo campo -->
+<section id="mister" class="mister-section">
+  <div class="mister-container">
+    <div class="mister-grid">
+
+      <!-- TEXTUAL SIDE -->
+      <div class="mister-text">
+        <div class="kicker" style="color: var(--red); border-color: rgba(214,40,40,0.35); background: rgba(214,40,40,0.06);">PWA Mister · Quick Mode</div>
+        <h2>Il mister osserva.<br><span class="text-red">L'app registra.</span></h2>
+        <p class="lead">Telefono in tasca a bordo campo. Tap singolo per minutaggi e sostituzioni, note vocali in italiano dopo l'azione, comportamento misurato a fine partita. Funziona offline, sincronizza quando rientra il segnale.</p>
+
+        <div class="mister-features">
+          <div class="mister-feat">
+            <div class="mister-feat-ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="mister-feat-body"><h5>Minutaggi reali</h5><p>Tap su entrata/uscita, totali per ruolo automatici.</p></div>
+          </div>
+          <div class="mister-feat">
+            <div class="mister-feat-ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            </div>
+            <div class="mister-feat-body"><h5>Note vocali IT</h5><p>Parli dopo l'azione, l'app trascrive.</p></div>
+          </div>
+          <div class="mister-feat">
+            <div class="mister-feat-ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            </div>
+            <div class="mister-feat-body"><h5>Offline-first</h5><p>Funziona senza rete, sync auto al rientro.</p></div>
+          </div>
+          <div class="mister-feat">
+            <div class="mister-feat-ic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="mister-feat-body"><h5>1 mano, 0 attriti</h5><p>UI portrait, target tap 44px, no scrolling caotico.</p></div>
+          </div>
+        </div>
+
+        <div class="pagelle-cta-row">
+          <button class="magnet-btn bg-white text-black px-6 py-3 rounded-full text-sm font-semibold">Prova Quick Mode</button>
+          <span style="color: rgba(255,255,255,0.5); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;">PWA · iOS + Android</span>
+        </div>
+      </div>
+
+      <!-- PHONE MOCKUP -->
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <!-- status bar -->
+            <div class="phone-sb">
+              <span>14:32</span>
+              <div class="phone-sb-icons">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 22h2v-7H2v7zm5 0h2V12H7v10zm5 0h2V8h-2v14zm5 0h2V4h-2v18z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7 3 2.7 5.4 0 9l12 14L24 9c-2.7-3.6-7-6-12-6z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><rect x="4" y="8" width="14" height="8" rx="1"/><rect x="21" y="10" width="2" height="4"/></svg>
+              </div>
+            </div>
+            <!-- header app -->
+            <div class="pa-header">
+              <div class="pa-hl">
+                <span class="pa-livebadge"><span class="pa-livedot"></span>Live</span>
+              </div>
+              <div class="pa-timer">37'</div>
+            </div>
+            <div class="pa-categ">Esordienti · vs Real Marche</div>
+
+            <!-- roster -->
+            <div class="pa-roster">
+              <div class="pa-player">
+                <div class="pa-num">1</div>
+                <div class="pa-pinfo">
+                  <div class="pa-pname">Leonardo B.</div>
+                  <div class="pa-prole">Portiere</div>
+                </div>
+                <div class="pa-pmin">37'</div>
+              </div>
+              <div class="pa-player is-active">
+                <div class="pa-num">10</div>
+                <div class="pa-pinfo">
+                  <div class="pa-pname">Matteo R.</div>
+                  <div class="pa-prole">Trequart · in campo</div>
+                </div>
+                <div class="pa-pmin is-hot">28'</div>
+              </div>
+              <div class="pa-player">
+                <div class="pa-num">7</div>
+                <div class="pa-pinfo">
+                  <div class="pa-pname">Davide F.</div>
+                  <div class="pa-prole">Ala dx · panchina</div>
+                </div>
+                <div class="pa-pmin">9'</div>
+              </div>
+              <div class="pa-player">
+                <div class="pa-num">4</div>
+                <div class="pa-pinfo">
+                  <div class="pa-pname">Andrea L.</div>
+                  <div class="pa-prole">Centrale dif · in campo</div>
+                </div>
+                <div class="pa-pmin">37'</div>
+              </div>
+              <div class="pa-player">
+                <div class="pa-num">9</div>
+                <div class="pa-pinfo">
+                  <div class="pa-pname">Tommaso V.</div>
+                  <div class="pa-prole">Punta · in campo</div>
+                </div>
+                <div class="pa-pmin">37'</div>
+              </div>
+            </div>
+
+            <!-- voice CTA -->
+            <div class="pa-voice">
+              <div class="pa-voice-ic">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+              </div>
+              <div class="pa-voice-text">
+                <strong>Tieni premuto per parlare</strong>
+                <span>Nota per Matteo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-offline-badge">Offline OK · sync auto</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- post-hero spacer (smooth exit) -->
 <section class="relative h-screen flex items-center justify-center bg-black">
   <div class="text-center px-6">
@@ -941,6 +1242,31 @@ ScrollTrigger.create({
   },
   onLeaveBack: () => {
     document.querySelectorAll('.pmetric').forEach((m) => m.classList.remove('is-anim'));
+  }
+});
+
+// ============= Mister section scroll-reveal =============
+gsap.to('.mister-text', {
+  opacity: 1, y: 0,
+  duration: 0.9, ease: 'power3.out',
+  scrollTrigger: { trigger: '#mister', start: 'top 75%', toggleActions: 'play none none reverse' }
+});
+
+gsap.to('.phone-wrap', {
+  opacity: 1, y: 0,
+  duration: 1.1, delay: 0.15, ease: 'power3.out',
+  scrollTrigger: { trigger: '#mister', start: 'top 75%', toggleActions: 'play none none reverse' }
+});
+
+// parallax phone leggero su scroll progress (effetto cinematic)
+gsap.to('.phone', {
+  y: -30,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#mister',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: 0.6
   }
 });
 
