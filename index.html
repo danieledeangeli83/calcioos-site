@@ -1047,6 +1047,47 @@
   }
   .footer-made-in .it-flag span { display: inline-block; width: 4px; height: 10px; }
 
+  /* scroll-up floating button — back to top */
+  .scroll-up-btn {
+    position: fixed; bottom: 24px; right: 24px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--red));
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.18);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 40;
+    box-shadow:
+      0 12px 30px -8px rgba(214,40,40,0.45),
+      0 6px 16px -4px rgba(6,168,181,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.2);
+    opacity: 0; transform: translateY(16px) scale(0.85);
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.35s cubic-bezier(0.22,1,0.36,1),
+                transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.3s ease,
+                visibility 0.35s linear;
+  }
+  .scroll-up-btn.is-visible {
+    opacity: 1; transform: translateY(0) scale(1);
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .scroll-up-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow:
+      0 18px 40px -8px rgba(214,40,40,0.6),
+      0 10px 24px -4px rgba(6,168,181,0.45),
+      inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .scroll-up-btn svg { width: 20px; height: 20px; stroke-width: 2.4; }
+  @media (min-width: 768px) {
+    .scroll-up-btn { bottom: 32px; right: 32px; width: 56px; height: 56px; }
+    .scroll-up-btn svg { width: 22px; height: 22px; }
+  }
+
   /* magnetic buttons */
   .magnet-btn {
     position: relative; isolation: isolate; cursor: pointer;
@@ -1081,6 +1122,14 @@
 
 <!-- scroll progress bar -->
 <div class="progress-bar" id="progressBar"></div>
+
+<!-- scroll-up floating button -->
+<button type="button" class="scroll-up-btn" id="scrollUpBtn" aria-label="Torna in cima">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"/>
+    <polyline points="5 12 12 5 19 12"/>
+  </svg>
+</button>
 
 <!-- floating glass nav — logomark PNG + wordmark CSS testo (split) -->
 <header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass">
@@ -2306,6 +2355,21 @@ gsap.to('.manifesto-signature, .manifesto-cta-row', {
   opacity: 1, y: 0,
   duration: 0.9, stagger: 0.15, ease: 'power3.out',
   scrollTrigger: { trigger: '.manifesto-signature', start: 'top 90%', toggleActions: 'play none none reverse' }
+});
+
+// ============= Scroll-up floating button (visible past 600px) =============
+const scrollUpBtn = document.getElementById('scrollUpBtn');
+const SCROLL_UP_THRESHOLD = 600;
+let scrollUpVisible = false;
+lenis.on('scroll', ({ scroll }) => {
+  const shouldShow = scroll > SCROLL_UP_THRESHOLD;
+  if (shouldShow !== scrollUpVisible) {
+    scrollUpVisible = shouldShow;
+    scrollUpBtn.classList.toggle('is-visible', shouldShow);
+  }
+});
+scrollUpBtn.addEventListener('click', () => {
+  lenis.scrollTo(0, { duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) });
 });
 
 // ============= Anchor smooth-scroll via Lenis — target = kicker della sezione (bypass padding-top) =============
