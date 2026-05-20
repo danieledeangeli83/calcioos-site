@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALCIO.OS — Hero cinematic preview</title>
+<meta name="description" content="Scroll-driven cinematic hero CALCIO.OS — Apple AirPods-style flipbook canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon-32.png" type="image/png">
+<link rel="preload" as="image" href="frames/seq/frame_001.webp">
+<link rel="preload" as="video" href="assets/intro-2.mp4" type="video/mp4">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<style>
+  :root {
+    --cyan: #06A8B5;
+    --red:  #D62828;
+  }
+  * { box-sizing: border-box; }
+  body { background: #050608; color: #fff; font-family: 'Inter', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; margin: 0; }
+  .font-display { font-family: 'Bricolage Grotesque', 'Inter', sans-serif; letter-spacing: -0.02em; }
+
+  /* canvas hero — flipbook */
+  #heroCanvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    background: #050608;
+  }
+  .cinematic-mask {
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 45%, rgba(5,6,8,0.55) 82%, rgba(5,6,8,0.95) 100%);
+  }
+  .grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E"); }
+
+  /* preload bar (sottile in top) */
+  .preload-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200;
+    background: linear-gradient(90deg, var(--cyan), var(--red));
+    transform-origin: 0 0; transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+  /* preload overlay con video intro come background */
+  .preload-overlay {
+    position: fixed; inset: 0; z-index: 199;
+    overflow: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    background: #050608;
+  }
+  .preload-overlay.is-ready { opacity: 0; visibility: hidden; pointer-events: none; }
+  .preload-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    filter: brightness(0.78) saturate(1.05);
+  }
+  .preload-content {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 0 24px 80px;
+    background: linear-gradient(180deg, rgba(5,6,8,0.15) 0%, rgba(5,6,8,0.35) 60%, rgba(5,6,8,0.85) 100%);
+    flex-direction: column;
+    gap: 14px;
+  }
+  .preload-content .inner {
+    width: 100%; max-width: 640px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 14px; align-items: center;
+  }
+  .preload-overlay .pct {
+    font-family: 'Bricolage Grotesque'; font-weight: 700;
+    font-size: clamp(64px, 9vw, 112px); line-height: 0.95;
+    background: linear-gradient(135deg, var(--cyan), var(--red));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; color: transparent;
+    letter-spacing: -0.04em;
+  }
+  .preload-overlay .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+  }
+  .preload-overlay .progress-track {
+    width: 100%; max-width: 480px; height: 2px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px; overflow: hidden;
+    margin-top: 6px;
+  }
+  .preload-overlay .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan), var(--red));
+    transform-origin: 0 0; transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+  /* scroll progress bar (after preload) */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100;
+    background: linear-gradient(90deg, var(--cyan), var(--red));
+    transform-origin: 0 0; transform: scaleX(0);
+  }
+
+  /* scroll cue */
+  .scroll-cue {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    transition: opacity 0.4s ease;
+  }
+  .scroll-cue::after {
+    content: ''; width: 1px; height: 36px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.5); } }
+
+  /* captions */
+  .shot-caption {
+    position: absolute; left: 50%; transform: translate(-50%, 8px); bottom: 12vh;
+    text-align: center; max-width: 880px; padding: 0 24px;
+    transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    opacity: 0; pointer-events: none;
+  }
+  .shot-caption.is-active { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+  .kicker {
+    display: inline-block; padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
+    background: rgba(255,255,255,0.04); backdrop-filter: blur(8px);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.78);
+    margin-bottom: 20px;
+  }
+  .shot-title { font-family: 'Bricolage Grotesque'; font-weight: 700; font-size: clamp(36px, 6vw, 76px); line-height: 1.02; letter-spacing: -0.025em; margin: 0; text-shadow: 0 2px 24px rgba(0,0,0,0.4); }
+  .shot-sub { color: rgba(255,255,255,0.78); font-size: clamp(15px, 1.5vw, 19px); margin: 18px auto 0; max-width: 640px; line-height: 1.5; text-shadow: 0 2px 16px rgba(0,0,0,0.45); }
+  .text-cyan { color: var(--cyan); }
+  .text-red  { color: var(--red);  }
+
+  /* header glass + LOGO SPLIT (logomark png + wordmark css) */
+  .nav-glass {
+    background: rgba(5,6,8,0.55); backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 999px;
+  }
+  .header-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .header-logomark { height: 30px; width: auto; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+  @media (min-width: 768px) { .header-logomark { height: 36px; } }
+  .header-wordmark {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+    display: inline-flex; align-items: baseline;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  }
+  @media (min-width: 768px) { .header-wordmark { font-size: 21px; } }
+  .border-glow {
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 80px rgba(6,168,181,0.18), 0 0 80px rgba(214,40,40,0.12);
+  }
+
+  /* anime section — bento 4 cards */
+  .anime-section { position: relative; background: #050608; padding: 140px 0 160px; overflow: hidden; }
+  @media (min-width: 768px) { .anime-section { padding: 180px 0 200px; } }
+  .anime-section::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,168,181,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 100%, rgba(214,40,40,0.06) 0%, transparent 55%);
+  }
+  .anime-container { position: relative; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 768px) { .anime-container { padding: 0 40px; } }
+  .anime-header { text-align: center; margin-bottom: 72px; }
+  @media (min-width: 768px) { .anime-header { margin-bottom: 96px; } }
+  .anime-header > * { opacity: 0; transform: translateY(24px); }
+  .anime-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 768px) { .anime-grid { grid-template-columns: 1fr 1fr; gap: 22px; } }
+  .anime-card {
+    position: relative;
+    padding: 32px 28px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    border-radius: 20px;
+    transition: border-color 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), background 0.45s ease;
+    overflow: hidden;
+    opacity: 0; transform: translateY(40px);
+    display: flex; flex-direction: column;
+  }
+  @media (min-width: 768px) { .anime-card { padding: 40px 34px; } }
+  .anime-card::before {
+    content: ''; position: absolute; inset: -1px; pointer-events: none; border-radius: 20px;
+    background: radial-gradient(circle 320px at var(--mx, 50%) var(--my, 0%), var(--anime-glow, rgba(6,168,181,0.1)), transparent 60%);
+    opacity: 0; transition: opacity 0.5s ease;
+    mix-blend-mode: screen;
+  }
+  .anime-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-4px); }
+  .anime-card:hover::before { opacity: 1; }
+  .anime-card[data-anime="sportiva"]      { --anime-glow: rgba(6,168,181,0.20); --anime-color: #06A8B5; }
+  .anime-card[data-anime="campo"]         { --anime-glow: rgba(214,40,40,0.18); --anime-color: #D62828; }
+  .anime-card[data-anime="amministrativa"]{ --anime-glow: rgba(255,255,255,0.12); --anime-color: #ffffff; }
+  .anime-card[data-anime="famiglia"]      { --anime-glow: rgba(214,40,40,0.18); --anime-color: #D62828; }
+  .anime-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    color: var(--anime-color);
+    background: color-mix(in srgb, var(--anime-color) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--anime-color) 30%, transparent);
+    margin-bottom: 22px;
+    flex-shrink: 0;
+  }
+  .anime-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 4px 11px;
+    border: 1px solid color-mix(in srgb, var(--anime-color) 35%, transparent);
+    color: var(--anime-color);
+    border-radius: 999px;
+    margin-bottom: 16px;
+    align-self: flex-start;
+  }
+  .anime-title {
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 30px); line-height: 1.15;
+    letter-spacing: -0.02em; margin: 0 0 14px;
+    color: rgba(255,255,255,0.96);
+  }
+  .anime-desc {
+    color: rgba(255,255,255,0.62);
+    font-size: 15px; line-height: 1.55;
+    margin: 0 0 24px;
+  }
+  .anime-features { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .anime-features span {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    padding: 5px 11px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.06em;
+  }
+
+  /* magnetic buttons */
+  .magnet-btn {
+    position: relative; isolation: isolate; cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.22,1,0.36,1);
+    overflow: hidden;
+  }
+  .magnet-btn::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(135deg, var(--cyan), var(--red));
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .magnet-btn:hover::before { opacity: 1; }
+  .magnet-btn:hover { transform: translateY(-2px) scale(1.02); }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- preload overlay con VIDEO INTRO come background -->
+<div class="preload-overlay" id="preloadOverlay">
+  <video class="preload-video" id="preloadVideo" autoplay muted loop playsinline preload="auto">
+    <source src="assets/intro-2.mp4?v=1" type="video/mp4">
+  </video>
+  <div class="preload-content">
+    <div class="inner">
+      <div class="pct" id="preloadPct">0%</div>
+      <div class="label">Caricamento sequenza cinematic</div>
+      <div class="progress-track"><div class="progress-fill" id="preloadFill"></div></div>
+    </div>
+  </div>
+</div>
+<div class="preload-bar" id="preloadBar"></div>
+
+<!-- scroll progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- floating glass nav — logomark PNG + wordmark CSS testo (split) -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass">
+  <div class="px-5 py-2.5 flex items-center gap-7">
+    <a href="/" class="header-brand">
+      <img src="assets/logomark-transparent.png?v=2" alt="" class="header-logomark">
+      <span class="header-wordmark">
+        <span class="text-cyan">CALCIO</span><span class="text-red">.OS</span>
+      </span>
+    </a>
+    <nav class="hidden md:flex items-center gap-5 text-sm text-white/70">
+      <a class="hover:text-white transition-colors cursor-pointer">Accademia</a>
+      <a class="hover:text-white transition-colors cursor-pointer">Genitori</a>
+      <a class="hover:text-white transition-colors cursor-pointer">Bambino</a>
+      <a class="hover:text-white transition-colors cursor-pointer">Tesi</a>
+      <a class="hover:text-white transition-colors cursor-pointer">Prezzi</a>
+    </nav>
+    <button class="magnet-btn bg-white text-black px-5 py-2 rounded-full text-sm font-semibold">Richiedi demo</button>
+  </div>
+</header>
+
+<!-- CINEMATIC HERO — flipbook canvas scroll-driven -->
+<section id="hero" class="relative" style="height: 900vh;">
+  <div class="sticky top-0 h-screen w-full overflow-hidden">
+
+    <!-- canvas flipbook (drawn from 192 webp frames) -->
+    <canvas id="heroCanvas" width="1920" height="1080"></canvas>
+
+    <!-- cinematic vignette + grain -->
+    <div class="absolute inset-0 cinematic-mask pointer-events-none"></div>
+    <div class="grain"></div>
+
+    <!-- 9 shot captions -->
+    <div class="shot-caption is-active" data-shot="1">
+      <div class="kicker">Educational sport platform · Italia</div>
+      <h1 class="shot-title">
+        Aiutiamo <span class="text-cyan">accademie</span> e <span class="text-red">famiglie</span><br>
+        a far crescere i ragazzi.
+      </h1>
+      <p class="shot-sub">Sul campo e oltre. Il sistema operativo del calcio italiano.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="2">
+      <div class="kicker">Dashboard società</div>
+      <h2 class="shot-title">Un solo posto.<br><span class="text-cyan">Quattro anime.</span></h2>
+      <p class="shot-sub">Squadre, pagamenti, comunicazioni, pagelle. Stop a Excel, WhatsApp e fogli persi.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="3">
+      <div class="kicker">Pagelle educative</div>
+      <h2 class="shot-title">Non un voto.<br><span class="text-red">Un metodo.</span></h2>
+      <p class="shot-sub">Tecnica, tattica, comportamento. L'allenatore osserva, l'AI scrive la prima bozza. Mensile, automatica, vera.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="4">
+      <div class="kicker">App genitori</div>
+      <h2 class="shot-title">La crescita di tuo figlio.<br><span class="text-cyan">In mano a te.</span></h2>
+      <p class="shot-sub">Pagella ogni mese, chat con l'allenatore, pagamenti chiari, calendario. Gratis. Senza ansia.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="5">
+      <div class="kicker">Il ragazzo al centro</div>
+      <h2 class="shot-title">Ogni ragazzo<br>ha la sua storia.</h2>
+      <p class="shot-sub">Da Piccoli Amici a Juniores. Tracciamo la crescita, non solo le presenze.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="6">
+      <div class="kicker">PWA Mister · Quick Mode</div>
+      <h2 class="shot-title">Il mister osserva.<br><span class="text-red">L'app registra.</span></h2>
+      <p class="shot-sub">Telefono in tasca a bordo campo. Minutaggi · ruolo · comportamento · note. Offline-ready.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="7">
+      <div class="kicker">Match management</div>
+      <h2 class="shot-title">Dalla Materna<br><span class="text-cyan">alla Serie A.</span></h2>
+      <p class="shot-sub">Regole FIGC + IFAB applicate automaticamente per categoria. Distinta, sostituzioni, classifica.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="8">
+      <div class="kicker">Tutto integrato</div>
+      <h2 class="shot-title">Sportiva. Campo. Admin. Famiglia.<br><span class="text-red">Una piattaforma.</span></h2>
+      <p class="shot-sub">Niente più 4 software che non si parlano. Compliance Italia inclusa.</p>
+    </div>
+
+    <div class="shot-caption" data-shot="9">
+      <div class="kicker">Pilot 2-3 accademie</div>
+      <h2 class="shot-title">Inizia ora.<br><span class="text-cyan">Gratis 30 giorni.</span></h2>
+      <p class="shot-sub">Setup in 15 minuti. Senza carta di credito. Onboarding personalizzato col founder.</p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <button class="magnet-btn px-7 py-3.5 rounded-full text-sm font-semibold border-glow bg-white text-black">Richiedi demo</button>
+        <button class="magnet-btn px-7 py-3.5 rounded-full text-sm font-semibold text-white/70 border border-white/15">Vedi i piani →</button>
+      </div>
+    </div>
+
+    <!-- scroll cue (visible only at shot 1) -->
+    <div class="scroll-cue" id="scrollCue">SCROLL</div>
+
+  </div>
+</section>
+
+<!-- ANIME SECTION — 4 moduli core MVP V1 -->
+<section id="anime" class="anime-section">
+  <div class="anime-container">
+
+    <!-- section header -->
+    <div class="anime-header">
+      <div class="kicker">I 4 moduli core · MVP V1</div>
+      <h2 class="font-display font-bold leading-none tracking-tight" style="font-size:clamp(40px,5.5vw,72px); margin-top:24px;">
+        Una piattaforma.<br>
+        <span class="text-cyan">Quattro</span> <span class="text-red">anime.</span>
+      </h2>
+      <p style="margin-top:28px; color:rgba(255,255,255,0.65); font-size:clamp(15px,1.4vw,18px); max-width:640px; margin-left:auto; margin-right:auto; line-height:1.55;">
+        Niente più 4 software che non si parlano. Tutto quello che serve a una società dilettantistica o pro-youth, integrato in un'unica logica.
+      </p>
+    </div>
+
+    <!-- bento grid 2x2 -->
+    <div class="anime-grid">
+
+      <article class="anime-card" data-anime="sportiva">
+        <div class="anime-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2h12v6a6 6 0 0 1-12 0V2z"/>
+            <path d="M6 4H3a2 2 0 0 0 0 4h3"/>
+            <path d="M18 4h3a2 2 0 0 1 0 4h-3"/>
+            <line x1="12" y1="14" x2="12" y2="18"/>
+            <path d="M9 22h6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+          </svg>
+        </div>
+        <span class="anime-tag">Sportiva</span>
+        <h3 class="anime-title">Lo staff tecnico, organizzato.</h3>
+        <p class="anime-desc">14 ruoli (DS, responsabile tecnico, mister, preparatore, analista, medico, fisio, scout) con permessi granulari. Cartella sanitaria, scouting, match statistics, training plans con libreria esercizi FIGC.</p>
+        <div class="anime-features">
+          <span>Ruoli &amp; permessi</span>
+          <span>Cartella medica</span>
+          <span>Scouting target</span>
+          <span>Match stats</span>
+        </div>
+      </article>
+
+      <article class="anime-card" data-anime="campo">
+        <div class="anime-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2v20"/>
+            <path d="M2 12h20"/>
+            <path d="M12 2a14 14 0 0 1 0 20"/>
+            <path d="M12 2a14 14 0 0 0 0 20"/>
+          </svg>
+        </div>
+        <span class="anime-tag">Campo</span>
+        <h3 class="anime-title">Il campo. In tasca al mister.</h3>
+        <p class="anime-desc">PWA Mister Quick Mode: telefono in tasca a bordo campo. Minutaggi, ruolo, comportamento, note vocali in italiano. Offline-ready. Sincronia quando rientra il segnale.</p>
+        <div class="anime-features">
+          <span>PWA Quick Mode</span>
+          <span>Note vocali IT</span>
+          <span>Offline-first</span>
+          <span>Sync real-time</span>
+        </div>
+      </article>
+
+      <article class="anime-card" data-anime="amministrativa">
+        <div class="anime-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"/>
+            <path d="M3 10h18"/>
+            <path d="M8 15h3"/>
+            <path d="M8 18h6"/>
+            <circle cx="17" cy="16.5" r="1.5"/>
+          </svg>
+        </div>
+        <span class="anime-tag">Amministrativa</span>
+        <h3 class="anime-title">Amministrazione, finalmente leggibile.</h3>
+        <p class="anime-desc">Squadre, iscrizioni, pagamenti rateali, fatturazione SDI, bilancio annuale auto-generato. Stop a Excel, WhatsApp, fogli persi e formulari cartacei. Compliance Italia inclusa.</p>
+        <div class="anime-features">
+          <span>Pagamenti rateali</span>
+          <span>Fatturazione SDI</span>
+          <span>Bilancio auto</span>
+          <span>Compliance IT</span>
+        </div>
+      </article>
+
+      <article class="anime-card" data-anime="famiglia">
+        <div class="anime-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <span class="anime-tag">Famiglia</span>
+        <h3 class="anime-title">La famiglia, finalmente dentro.</h3>
+        <p class="anime-desc">App genitori gratis: chat diretta con l'allenatore, Pagelle mensili educative, pagamenti chiari, calendario figlio, multi-figlio in un'unica app. Senza ansia, senza WhatsApp dispersi.</p>
+        <div class="anime-features">
+          <span>Chat allenatore</span>
+          <span>Pagelle mensili</span>
+          <span>Multi-figlio</span>
+          <span>GDPR-K consent</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- post-hero spacer (smooth exit) -->
+<section class="relative h-screen flex items-center justify-center bg-black">
+  <div class="text-center px-6">
+    <div class="kicker">Hero preview · canvas flipbook · 192 frame WebP</div>
+    <h3 class="font-display font-bold text-3xl md:text-5xl mb-4">Stack: Tailwind · Lenis · GSAP ScrollTrigger</h3>
+    <p class="text-white/60 max-w-xl mx-auto">Frame sequence generata con Kling continuous via ALFRED · scroll-driven canvas drawImage · pattern Apple product pages.</p>
+  </div>
+</section>
+
+<script>
+// ============= Lenis smooth scroll =============
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+  smoothTouch: false,
+});
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+// ============= GSAP ScrollTrigger sync =============
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
+
+// ============= Preload video autoplay safety =============
+const preloadVideo = document.getElementById('preloadVideo');
+preloadVideo.play().catch(() => {
+  // some browsers gate autoplay even with muted; ignore — video appears on user gesture
+});
+
+// ============= Canvas flipbook =============
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d', { alpha: false });
+
+const FRAME_COUNT = 192;
+const FRAME_PATH = (i) => `frames/seq/frame_${String(i).padStart(3, '0')}.webp`;
+
+const frames = new Array(FRAME_COUNT);
+const frameState = { value: 0 };
+let loadedCount = 0;
+
+const preloadOverlay = document.getElementById('preloadOverlay');
+const preloadPct = document.getElementById('preloadPct');
+const preloadBar = document.getElementById('preloadBar');
+const preloadFill = document.getElementById('preloadFill');
+
+function onFrameLoad() {
+  loadedCount++;
+  const progress = loadedCount / FRAME_COUNT;
+  const pct = Math.round(progress * 100);
+  preloadPct.textContent = pct + '%';
+  preloadBar.style.transform = `scaleX(${progress})`;
+  preloadFill.style.transform = `scaleX(${progress})`;
+  if (loadedCount === FRAME_COUNT) {
+    drawFrame(0);
+    requestAnimationFrame(() => {
+      preloadOverlay.classList.add('is-ready');
+      // pause + cleanup intro video dopo fade-out
+      setTimeout(() => {
+        try { preloadVideo.pause(); preloadVideo.removeAttribute('src'); preloadVideo.load(); } catch(_){}
+      }, 800);
+      ScrollTrigger.refresh();
+    });
+  } else if (loadedCount % 8 === 0) {
+    drawFrame(Math.min(loadedCount - 1, FRAME_COUNT - 1));
+  }
+}
+
+for (let i = 0; i < FRAME_COUNT; i++) {
+  const img = new Image();
+  img.decoding = 'async';
+  img.onload = onFrameLoad;
+  img.onerror = onFrameLoad;
+  img.src = FRAME_PATH(i + 1);
+  frames[i] = img;
+}
+
+function drawFrame(idx) {
+  const img = frames[idx];
+  if (!img || !img.complete || img.naturalWidth === 0) return;
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+}
+
+function render() {
+  drawFrame(Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(frameState.value))));
+}
+
+// ============= ScrollTrigger frame swap =============
+gsap.to(frameState, {
+  value: FRAME_COUNT - 1,
+  snap: 'value',
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 0.4,
+    onUpdate: (self) => {
+      const p = self.progress;
+      document.getElementById('progressBar').style.transform = `scaleX(${p})`;
+      const shotIndex = Math.min(8, Math.floor(p * 9));
+      setActiveShot(shotIndex + 1);
+    }
+  },
+  onUpdate: render
+});
+
+// ============= Caption sync =============
+const captions = document.querySelectorAll('.shot-caption');
+const scrollCue = document.getElementById('scrollCue');
+let activeShot = 1;
+function setActiveShot(n) {
+  if (n === activeShot) return;
+  activeShot = n;
+  captions.forEach((c) => c.classList.toggle('is-active', parseInt(c.dataset.shot) === n));
+  scrollCue.style.opacity = n === 1 ? '1' : '0';
+}
+
+// ============= Magnetic buttons =============
+document.querySelectorAll('.magnet-btn').forEach((btn) => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.18}px, ${y * 0.25}px) scale(1.03)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+
+// ============= Anime section scroll-reveal =============
+gsap.to('.anime-header > *', {
+  opacity: 1,
+  y: 0,
+  duration: 0.8,
+  stagger: 0.1,
+  ease: 'power3.out',
+  scrollTrigger: {
+    trigger: '#anime',
+    start: 'top 80%',
+    toggleActions: 'play none none reverse'
+  }
+});
+
+gsap.utils.toArray('.anime-card').forEach((card, i) => {
+  gsap.to(card, {
+    opacity: 1,
+    y: 0,
+    duration: 0.85,
+    delay: i * 0.08,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: card,
+      start: 'top 85%',
+      toggleActions: 'play none none reverse'
+    }
+  });
+
+  // mouse-follow glow per card
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const mx = ((e.clientX - rect.left) / rect.width) * 100;
+    const my = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mx', mx + '%');
+    card.style.setProperty('--my', my + '%');
+  });
+});
+
+// ============= prefers-reduced-motion =============
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  lenis.destroy();
+}
+</script>
+</body>
+</html>
