@@ -2054,12 +2054,20 @@ gsap.ticker.lagSmoothing(0);
 
 // (preload video già inizializzato in PRIORITY 1 sopra)
 
-// ============= Canvas flipbook =============
+// ============= Canvas flipbook (mobile/desktop separate sequences) =============
 const canvas = document.getElementById('heroCanvas');
 const ctx = canvas.getContext('2d', { alpha: false });
 
+// Canvas internal dimensions: mobile 720x1280 portrait (Kling 9:16), desktop 1920x1080 landscape
+if (_isMobileVP) {
+  canvas.width = 720;
+  canvas.height = 1280;
+}
+
 const FRAME_COUNT = 192;
-const FRAME_PATH = (i) => `frames/seq/frame_${String(i).padStart(3, '0')}.webp`;
+const FRAME_PATH = (i) => _isMobileVP
+  ? `frames/seq-mobile/frame_${String(i).padStart(3, '0')}.webp`
+  : `frames/seq/frame_${String(i).padStart(3, '0')}.webp`;
 
 const frames = new Array(FRAME_COUNT);
 const frameState = { value: 0 };
