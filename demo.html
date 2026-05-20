@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo CALCIO.OS · accademia di esempio</title>
+<meta name="description" content="Quattro schermate dal prodotto CALCIO.OS dal vivo, su un'accademia di esempio." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan-500:#06A8B5; --cyan-600:#058A95; --red-500:#D62828;
+  --bg:#F4F6F9; --surface:#FFFFFF; --border:#E5E7EB;
+  --text:#0F172A; --text-2:#475569; --text-3:#94A3B8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;font-size:15px;line-height:1.55;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;line-height:1.15}
+.kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--red-500)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;border:2px solid transparent;transition:all .15s ease}
+.btn-primary{background:var(--text);color:#FFF}
+.btn-primary:hover{background:var(--cyan-600)}
+.btn-outline{border-color:var(--text);color:var(--text)}
+.btn-outline:hover{background:var(--text);color:#FFF}
+
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+header .inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+header a.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:'Space Grotesk';font-weight:700;font-size:16px}
+header a.brand img{height:32px;width:auto}
+header nav{display:flex;gap:24px}
+header nav a{color:var(--text-2);font-size:14px;font-weight:500;text-decoration:none}
+header nav a:hover{color:var(--text)}
+
+.hero{max-width:980px;margin:0 auto;padding:80px 24px 60px;text-align:center}
+.hero .kicker{display:block;margin-bottom:16px}
+.hero h1{font-size:clamp(34px,5vw,52px);font-weight:700;margin-bottom:20px}
+.hero p{font-size:18px;color:var(--text-2);max-width:680px;margin:0 auto 32px}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+section.shot{max-width:1200px;margin:0 auto;padding:40px 24px}
+.shot h3{font-size:24px;font-weight:700;margin-bottom:8px}
+.shot .cap{color:var(--text-2);font-size:15px;max-width:760px;margin-bottom:24px}
+.shot .frame{border-radius:14px;border:1px solid var(--border);box-shadow:0 12px 24px rgba(15,23,42,0.10);overflow:hidden;background:var(--surface)}
+.shot .frame img{display:block;width:100%;height:auto}
+
+.cta-final{max-width:1200px;margin:60px auto 100px;padding:56px 32px;background:var(--text);color:#FFF;border-radius:16px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan-500),var(--red-500))}
+.cta-final .kicker{color:#C7EEF2}
+.cta-final h2{font-size:clamp(28px,4vw,38px);margin:10px 0 14px;color:#FFF}
+.cta-final p{color:#94A3B8;max-width:540px;margin:0 auto 28px;font-size:16px}
+.cta-final .btn-primary{background:#FFF;color:var(--text)}
+.cta-final .btn-primary:hover{background:#C7EEF2}
+.cta-final .btn-outline{border-color:#FFF;color:#FFF}
+.cta-final .btn-outline:hover{background:#FFF;color:var(--text)}
+
+footer{max-width:1200px;margin:0 auto;padding:32px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-3)}
+footer a{color:var(--text-2);text-decoration:none}
+
+@media (max-width:700px){
+  header nav{display:none}
+  .hero{padding:48px 16px 40px}
+  section.shot{padding:24px 16px}
+  .cta-final{margin:40px 16px 60px;padding:40px 24px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a href="./" class="brand">
+      <img src="./assets/logomark-transparent.png?v=2" alt="CALCIO.OS" class="header-logomark" />
+      CALCIO.OS
+    </a>
+    <nav>
+      <a href="./#pricing">Prezzi</a>
+      <a href="./demo.html" style="color:var(--text);font-weight:600;">Demo</a>
+      <a href="./#manifesto">Manifesto</a>
+    </nav>
+    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn btn-primary">Contattami</a>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="kicker">Demo · accademia di esempio</span>
+  <h1>Quattro schermate dal prodotto, dal vivo.</h1>
+  <p>Sono screenshot reali del dashboard CALCIO.OS, presi su un'accademia di esempio. Niente mockup, niente render: questo è ciò che vede chi accede oggi.</p>
+  <div class="ctas">
+    <a href="#shot-1" class="btn btn-primary">Inizia ↓</a>
+    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn btn-outline">Voglio una demo per la mia accademia</a>
+  </div>
+</section>
+
+<section class="shot" id="shot-1">
+  <span class="kicker">01 · Lista atleti</span>
+  <h3>La rosa, sotto mano.</h3>
+  <p class="cap">Lista atleti della società con anagrafica essenziale: cognome, nome, data di nascita, ruolo, numero di maglia, piede preferito. Click su una riga apre la scheda personale.</p>
+  <div class="frame"><img src="./demo-screenshots/1-lista-atleti.png" alt="Lista atleti CALCIO.OS" /></div>
+</section>
+
+<section class="shot" id="shot-2">
+  <span class="kicker">02 · Scheda atleta · Anagrafica</span>
+  <h3>Tutta l'anagrafica in una pagina.</h3>
+  <p class="cap">Dati personali completi, modificabili in linea. Sette tab nella stessa scheda: Anagrafica, Foto + Documenti, Famiglia, Squadre, Tesseramento, Pagelle, Audit log.</p>
+  <div class="frame"><img src="./demo-screenshots/2-scheda-anagrafica.png" alt="Scheda atleta — Anagrafica" /></div>
+</section>
+
+<section class="shot" id="shot-3">
+  <span class="kicker">03 · Scheda atleta · Pagelle</span>
+  <h3>Lo storico pagelle per atleta.</h3>
+  <p class="cap">Timeline cronologica delle valutazioni bimestrali con voto complessivo e dettaglio per macro-area (tecnica, tattica, comportamento). Click su una pagella per aprirla.</p>
+  <div class="frame"><img src="./demo-screenshots/3-scheda-pagelle.png" alt="Scheda atleta — Pagelle timeline" /></div>
+</section>
+
+<section class="shot" id="shot-4">
+  <span class="kicker">04 · Scheda atleta · Audit log</span>
+  <h3>Storico modifiche immutabile.</h3>
+  <p class="cap">Ogni operazione sulla scheda dell'atleta è registrata in modo immutabile: chi, quando, cosa, da quale indirizzo IP. Retention 5+ anni, conforme GDPR.</p>
+  <div class="frame"><img src="./demo-screenshots/4-scheda-audit.png" alt="Scheda atleta — Audit log" /></div>
+</section>
+
+<div class="cta-final">
+  <span class="kicker">Pilot accademia · stagione 2026/27</span>
+  <h2>Vuoi una demo per la tua società?</h2>
+  <p>Mezz'ora online, con le squadre e i mister della tua accademia. Senza impegno.</p>
+  <div class="ctas" style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia&body=Ciao%20Daniele%2C%0A%0AGestisco%20%5Bnome%20societa%5D%20con%20%5BN%5D%20atleti.%0AVorrei%20vedere%20CALCIO.OS%20da%20vicino.%0A%0AGrazie." class="btn btn-primary">Scrivimi una mail →</a>
+    <a href="./" class="btn btn-outline">Torna al sito</a>
+  </div>
+</div>
+
+<footer>
+  <div>© 2026 CALCIO.OS · Daniele Deangeli</div>
+  <div style="display:flex;gap:20px"><a href="./">Home</a><a href="mailto:daniele@danieledeangeli.com">Contatti</a></div>
+</footer>
+
+</body>
+</html>
