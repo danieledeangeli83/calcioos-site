@@ -1105,11 +1105,9 @@
 </head>
 <body class="overflow-x-hidden">
 
-<!-- preload overlay con VIDEO INTRO come background -->
+<!-- preload overlay con VIDEO INTRO (mobile/desktop swap via JS detect) -->
 <div class="preload-overlay" id="preloadOverlay">
-  <video class="preload-video" id="preloadVideo" autoplay muted loop playsinline preload="auto">
-    <source src="assets/intro-2.mp4?v=1" type="video/mp4">
-  </video>
+  <video class="preload-video" id="preloadVideo" autoplay muted loop playsinline preload="auto"></video>
   <div class="preload-content">
     <div class="inner">
       <div class="pct" id="preloadPct">0%</div>
@@ -2041,8 +2039,17 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((time) => { lenis.raf(time * 1000); });
 gsap.ticker.lagSmoothing(0);
 
-// ============= Preload video autoplay safety =============
+// ============= Preload video — swap mobile/desktop dinamico =============
 const preloadVideo = document.getElementById('preloadVideo');
+const _isMobileVP = window.matchMedia('(max-width: 768px)').matches;
+const _introSrc = _isMobileVP
+  ? 'assets/intro-mobile.mp4?v=1'   // 720x1280 portrait
+  : 'assets/intro-2.mp4?v=1';        // 1280x720 landscape
+const _sourceEl = document.createElement('source');
+_sourceEl.src = _introSrc;
+_sourceEl.type = 'video/mp4';
+preloadVideo.appendChild(_sourceEl);
+preloadVideo.load();
 preloadVideo.play().catch(() => {
   // some browsers gate autoplay even with muted; ignore — video appears on user gesture
 });
