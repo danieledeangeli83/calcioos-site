@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Demo CALCIO.OS · accademia di esempio</title>
-<meta name="description" content="Quattro schermate dal prodotto CALCIO.OS dal vivo, su un'accademia di esempio." />
+<title>Demo CALCIO.OS · la beta dal vivo</title>
+<meta name="description" content="Screenshot reali della dashboard società e dell'app staff CALCIO.OS, presi sulla società di esempio. Niente mockup, niente render." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,7 +37,6 @@ header.nav-glass nav a:hover{color:#fff}
 header.nav-glass nav a.active{color:#06A8B5;font-weight:600}
 header.nav-glass .btn-pill{background:#fff;color:#0F172A;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s ease;white-space:nowrap}
 header.nav-glass .btn-pill:hover{background:#C7EEF2}
-/* spacer to compensate fixed header */
 .header-spacer{height:80px}
 
 .hero{max-width:980px;margin:0 auto;padding:80px 24px 60px;text-align:center}
@@ -52,6 +51,11 @@ section.shot{max-width:1200px;margin:0 auto;padding:40px 24px}
 .shot .frame{border-radius:14px;border:1px solid var(--border);box-shadow:0 12px 24px rgba(15,23,42,0.10);overflow:hidden;background:var(--surface)}
 .shot .frame img{display:block;width:100%;height:auto}
 
+.phones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px}
+.phone-frame{border-radius:22px;border:1px solid var(--border);box-shadow:0 12px 24px rgba(15,23,42,0.10);overflow:hidden;background:var(--surface)}
+.phone-frame img{display:block;width:100%;height:auto}
+.phone-label{margin-top:10px;text-align:center;font-size:13px;color:var(--text-2);font-weight:600}
+
 .cta-final{max-width:1200px;margin:60px auto 100px;padding:56px 32px;background:var(--text);color:#FFF;border-radius:16px;text-align:center;position:relative;overflow:hidden}
 .cta-final::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan-500),var(--red-500))}
 .cta-final .kicker{color:#C7EEF2}
@@ -65,6 +69,9 @@ section.shot{max-width:1200px;margin:0 auto;padding:40px 24px}
 footer{max-width:1200px;margin:0 auto;padding:32px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--text-3)}
 footer a{color:var(--text-2);text-decoration:none}
 
+@media (max-width:900px){
+  .phones-grid{grid-template-columns:1fr;max-width:380px;margin:0 auto}
+}
 @media (max-width:700px){
   header nav{display:none}
   .hero{padding:48px 16px 40px}
@@ -87,53 +94,88 @@ footer a{color:var(--text-2);text-decoration:none}
     <a href="./#manifesto">Tesi</a>
     <a href="./#pricing">Prezzi</a>
     <a href="./demo.html" class="active">Demo</a>
+    <a href="https://admin.calcioos.com">Accedi</a>
   </nav>
   <a href="./#pricing" class="btn-pill">Richiedi demo</a>
 </header>
 <div class="header-spacer"></div>
 
 <section class="hero">
-  <span class="kicker">Demo · accademia di esempio</span>
-  <h1>Quattro schermate dal prodotto, dal vivo.</h1>
-  <p>Sono screenshot reali del dashboard CALCIO.OS, presi su un'accademia di esempio. Niente mockup, niente render: questo è ciò che vede chi accede oggi.</p>
+  <span class="kicker">Demo · la beta dal vivo · giugno 2026</span>
+  <h1>Questo è il prodotto. Oggi.</h1>
+  <p>Screenshot reali della dashboard società e dell'app staff, presi sulla società di esempio. Niente mockup, niente render: questo è ciò che vede chi accede alla beta.</p>
   <div class="ctas">
-    <a href="#shot-1" class="btn btn-primary">Inizia ↓</a>
-    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn btn-outline">Voglio una demo per la mia accademia</a>
+    <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia" class="btn btn-primary">Voglio una demo per la mia accademia</a>
+    <a href="https://admin.calcioos.com" class="btn btn-outline">Accedi alla beta →</a>
   </div>
 </section>
 
 <section class="shot" id="shot-1">
-  <span class="kicker">01 · Lista atleti</span>
-  <h3>La rosa, sotto mano.</h3>
-  <p class="cap">Lista atleti della società con anagrafica essenziale: cognome, nome, data di nascita, ruolo, numero di maglia, piede preferito. Click su una riga apre la scheda personale.</p>
-  <div class="frame"><img src="./demo-screenshots/1-lista-atleti.png" alt="Lista atleti CALCIO.OS" /></div>
+  <span class="kicker">01 · Home · Scadenzario</span>
+  <h3>Apri, e sai cosa fare oggi.</h3>
+  <p class="cap">La home della società: atleti tesserati, squadre, pagelle in corso. E lo scadenzario del giorno — documenti da verificare, certificati in scadenza, taglie kit mancanti.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-home.png" alt="Dashboard CALCIO.OS — home con scadenzario" loading="lazy" /></div>
 </section>
 
 <section class="shot" id="shot-2">
-  <span class="kicker">02 · Scheda atleta · Anagrafica</span>
-  <h3>Tutta l'anagrafica in una pagina.</h3>
-  <p class="cap">Dati personali completi, modificabili in linea. Sette tab nella stessa scheda: Anagrafica, Foto + Documenti, Famiglia, Squadre, Tesseramento, Pagelle, Audit log.</p>
-  <div class="frame"><img src="./demo-screenshots/2-scheda-anagrafica.png" alt="Scheda atleta — Anagrafica" /></div>
+  <span class="kicker">02 · Atleti</span>
+  <h3>La rosa, sotto mano.</h3>
+  <p class="cap">Anagrafica completa per ogni atleta: dati personali, famiglia con consensi foto/video (GDPR-K), documenti con scadenze controllate, squadre, tesseramento, pagelle e storico modifiche.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-atleti.png" alt="Lista atleti CALCIO.OS" loading="lazy" /></div>
 </section>
 
 <section class="shot" id="shot-3">
-  <span class="kicker">03 · Scheda atleta · Pagelle</span>
-  <h3>Lo storico pagelle per atleta.</h3>
-  <p class="cap">Timeline cronologica delle valutazioni bimestrali con voto complessivo e dettaglio per macro-area (tecnica, tattica, comportamento). Click su una pagella per aprirla.</p>
-  <div class="frame"><img src="./demo-screenshots/3-scheda-pagelle.png" alt="Scheda atleta — Pagelle timeline" /></div>
+  <span class="kicker">03 · Organigramma</span>
+  <h3>Chi fa cosa, nero su bianco.</h3>
+  <p class="cap">I ruoli veri della società: direzione e amministrazione, staff squadra — mister, vice, team manager, preparatori, segreteria. Il ruolo in squadra deriva dall'organigramma, senza doppioni.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-organigramma.png" alt="Organigramma CALCIO.OS" loading="lazy" /></div>
 </section>
 
 <section class="shot" id="shot-4">
-  <span class="kicker">04 · Scheda atleta · Audit log</span>
-  <h3>Storico modifiche immutabile.</h3>
-  <p class="cap">Ogni operazione sulla scheda dell'atleta è registrata in modo immutabile: chi, quando, cosa, da quale indirizzo IP. Retention 5+ anni, conforme GDPR.</p>
-  <div class="frame"><img src="./demo-screenshots/4-scheda-audit.png" alt="Scheda atleta — Audit log" /></div>
+  <span class="kicker">04 · Pagelle educative</span>
+  <h3>Due livelli, un metodo.</h3>
+  <p class="cap">Pagelle trimestrali per categoria: fino ai Pulcini quattro voci semplici, dagli Esordienti le 14 voci ufficiali in tre aree (tecnica, tattica, comportamento). Bozza → approvazione della direzione tecnica → pubblicata. Con PDF.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-pagelle.png" alt="Pagelle CALCIO.OS — trimestri e stati di approvazione" loading="lazy" /></div>
+</section>
+
+<section class="shot" id="shot-5">
+  <span class="kicker">05 · Allenamenti</span>
+  <h3>Il piano della settimana, con la libreria FIGC.</h3>
+  <p class="cap">Piani settimanali con tema e sedute a blocchi. Libreria di 21 esercizi federali illustrati — riscaldamento, tecnica, tattica, partita — più gli esercizi della società. Il vincolo del settore di base (max 3 sedute a settimana) è applicato davvero.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-allenamenti.png" alt="Allenamenti CALCIO.OS — piano settimanale e libreria esercizi" loading="lazy" /></div>
+</section>
+
+<section class="shot" id="shot-6">
+  <span class="kicker">06 · Scheda esercizio</span>
+  <h3>Diagramma federale, foto, scheda completa.</h3>
+  <p class="cap">Ogni esercizio ha il diagramma in notazione federale (movimento, passaggio, conduzione), le foto, e la scheda FIGC: obiettivi didattici, svolgimento, varianti e progressioni, materiali, età consigliata. Duplica e personalizza.</p>
+  <div class="frame"><img src="./demo-screenshots/dash-esercizio-rondo.png" alt="Scheda esercizio Rondo 5 contro 2 con diagramma in notazione federale" loading="lazy" /></div>
+</section>
+
+<section class="shot" id="shot-7">
+  <span class="kicker">07 · PWA staff · app.calcioos.com</span>
+  <h3>Il mister, dal telefono.</h3>
+  <p class="cap">Le sedute della settimana coi diagrammi dei blocchi, la libreria esercizi — il mister crea i suoi con foto dal telefono e video registrati con la fotocamera direttamente sul campo — e la pagella rapida a bordo campo.</p>
+  <div class="phones-grid">
+    <div>
+      <div class="phone-frame"><img src="./demo-screenshots/pwa-sedute.png" alt="PWA staff — sedute della settimana" loading="lazy" /></div>
+      <div class="phone-label">Sedute + diagrammi</div>
+    </div>
+    <div>
+      <div class="phone-frame"><img src="./demo-screenshots/pwa-esercizi.png" alt="PWA staff — libreria esercizi" loading="lazy" /></div>
+      <div class="phone-label">Esercizi · foto e video dal campo</div>
+    </div>
+    <div>
+      <div class="phone-frame"><img src="./demo-screenshots/pwa-pagelle.png" alt="PWA staff — pagella rapida" loading="lazy" /></div>
+      <div class="phone-label">Pagella rapida</div>
+    </div>
+  </div>
 </section>
 
 <div class="cta-final">
   <span class="kicker">Pilot accademia · stagione 2026/27</span>
-  <h2>Vuoi una demo per la tua società?</h2>
-  <p>Mezz'ora online, con le squadre e i mister della tua accademia. Senza impegno.</p>
+  <h2>Vuoi vederlo sulla tua società?</h2>
+  <p>Mezz'ora online, con le squadre e i mister della tua accademia. Senza impegno, senza carta di credito.</p>
   <div class="ctas" style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
     <a href="mailto:daniele@danieledeangeli.com?subject=Demo%20CALCIO.OS%20per%20la%20mia%20accademia&body=Ciao%20Daniele%2C%0A%0AGestisco%20%5Bnome%20societa%5D%20con%20%5BN%5D%20atleti.%0AVorrei%20vedere%20CALCIO.OS%20da%20vicino.%0A%0AGrazie." class="btn btn-primary">Scrivimi una mail →</a>
     <a href="./" class="btn btn-outline">Torna al sito</a>
@@ -142,7 +184,7 @@ footer a{color:var(--text-2);text-decoration:none}
 
 <footer>
   <div>© 2026 CALCIO.OS · Daniele Deangeli</div>
-  <div style="display:flex;gap:20px"><a href="./">Home</a><a href="mailto:daniele@danieledeangeli.com">Contatti</a></div>
+  <div style="display:flex;gap:20px"><a href="./">Home</a><a href="https://admin.calcioos.com">Dashboard società</a><a href="https://app.calcioos.com">App staff</a><a href="mailto:daniele@danieledeangeli.com">Contatti</a></div>
 </footer>
 
 </body>
