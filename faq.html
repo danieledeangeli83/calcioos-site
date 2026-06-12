@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ · CALCIO.OS</title>
+<meta name="description" content="Domande frequenti su CALCIO.OS: cos'è, quanto costa, cosa funziona oggi, come si diventa pilot, come trattiamo i dati dei minori." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cyan-500:#06A8B5;--cyan-600:#058A95;--red-500:#D62828;--bg:#F4F6F9;--surface:#FFFFFF;--border:#E5E7EB;--text:#0F172A;--text-2:#475569;--text-3:#94A3B8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;line-height:1.15}
+.kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--red-500)}
+header.nav-glass{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(15,23,42,0.78);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:10px 22px;display:flex;align-items:center;gap:28px;box-shadow:0 8px 32px rgba(0,0,0,0.30)}
+header.nav-glass .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+header.nav-glass .header-logomark{height:28px;width:auto;display:block}
+header.nav-glass .header-wordmark{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+header.nav-glass .header-wordmark .text-cyan{color:#06A8B5}
+header.nav-glass .header-wordmark .text-red{color:#D62828}
+header.nav-glass nav{display:flex;gap:20px}
+header.nav-glass nav a{color:rgba(255,255,255,0.72);font-size:13.5px;font-weight:500;text-decoration:none}
+header.nav-glass nav a:hover{color:#fff}
+header.nav-glass .btn-pill{background:#fff;color:#0F172A;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.header-spacer{height:88px}
+.page{max-width:880px;margin:0 auto;padding:52px 24px 40px}
+.page h1{font-size:clamp(30px,4.5vw,44px);margin:8px 0 14px}
+.page .lead{font-size:17px;color:var(--text-2);max-width:680px;margin-bottom:20px}
+details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin:10px 0;box-shadow:0 4px 12px rgba(15,23,42,0.04)}
+details summary{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+details summary::after{content:'+';font-size:20px;color:var(--text-3);flex-shrink:0}
+details[open] summary::after{content:'–'}
+details p{margin-top:10px;color:var(--text-2)}
+details a{color:var(--cyan-600)}
+footer{max-width:880px;margin:0 auto;padding:28px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-3)}
+footer a{color:var(--text-2);text-decoration:none}
+@media (max-width:700px){header.nav-glass nav{display:none}}
+</style>
+</head>
+<body>
+
+<header class="nav-glass">
+  <a href="./" class="brand"><img src="./assets/logomark-transparent.png?v=2" alt="" class="header-logomark" /><span class="header-wordmark"><span class="text-cyan">CALCIO</span><span class="text-red">.OS</span></span></a>
+  <nav>
+    <a href="./#anime">Accademia</a><a href="./#genitori">Genitori</a><a href="./#pagelle">Bambino</a><a href="./#manifesto">Tesi</a><a href="./#pricing">Prezzi</a><a href="./demo.html">Demo</a><a href="https://admin.calcioos.com">Accedi</a>
+  </nav>
+  <a href="./#pricing" class="btn-pill">Richiedi demo</a>
+</header>
+<div class="header-spacer"></div>
+
+<main class="page">
+  <span class="kicker">FAQ</span>
+  <h1>Domande frequenti.</h1>
+  <p class="lead">Risposte dirette. Se non trovi la tua, <a href="mailto:daniele@danieledeangeli.com?subject=CALCIO.OS%20%E2%80%94%20Domanda">scrivici</a>: risponde il founder, non un bot.</p>
+
+  <details open>
+    <summary>Cos'è CALCIO.OS?</summary>
+    <p>Il sistema operativo del calcio giovanile italiano: una piattaforma unica per società dilettantistiche e scuole calcio che tiene insieme squadre, atleti, documenti, pagelle educative e allenamenti — al posto di Excel, WhatsApp e fogli persi.</p>
+  </details>
+
+  <details>
+    <summary>Per chi è pensato?</summary>
+    <p>Per accademie, scuole calcio e società dilettantistiche dai Piccoli Amici agli Juniores. Lo usano la segreteria (anagrafiche, documenti, scadenze), la direzione tecnica (pagelle, metodologia) e i mister sul campo (PWA dal telefono).</p>
+  </details>
+
+  <details>
+    <summary>Cosa funziona già oggi?</summary>
+    <p>Dashboard società completa (squadre, atleti, organigramma, pagelle, allenamenti con libreria FIGC) e PWA per lo staff (sedute con diagrammi, esercizi con foto e video dal campo, pagella rapida). La <a href="./demo.html">demo</a> mostra screenshot reali, la <a href="./roadmap.html">roadmap</a> dice cosa è in sviluppo e cosa arriva dopo.</p>
+  </details>
+
+  <details>
+    <summary>Quanto costa?</summary>
+    <p>Il pilot è gratis per 3 mesi pieni, senza carta di credito. Poi i piani partono da 49€/mese (fino a 4 squadre) — vedi i <a href="./#pricing">prezzi</a>. Le funzioni segnate «in arrivo» sono incluse nei piani senza costi extra quando escono.</p>
+  </details>
+
+  <details>
+    <summary>Le pagelle come funzionano?</summary>
+    <p>Sono trimestrali ed educative, su due livelli automatici per categoria: fino ai Pulcini quattro voci semplici (impegno, capacità coordinative, comportamento, tecnica); dagli Esordienti le 14 voci ufficiali in tre aree — tecnica, tattica, comportamento. Il mister compila, la direzione tecnica approva e pubblica, la famiglia riceve un documento chiaro con PDF.</p>
+  </details>
+
+  <details>
+    <summary>Quando arriva l'app per i genitori?</summary>
+    <p>È in sviluppo, obiettivo stagione 2026/27, e sarà gratuita per le famiglie. Già oggi i genitori sono in anagrafica con i consensi foto/video e la segreteria può scrivere alle famiglie dalla piattaforma.</p>
+  </details>
+
+  <details>
+    <summary>Serve installare qualcosa?</summary>
+    <p>No. La dashboard società funziona dal browser (admin.calcioos.com). L'app dello staff è una PWA: la apri dal telefono (app.calcioos.com) e la aggiungi alla schermata Home — niente store, niente installazioni.</p>
+  </details>
+
+  <details>
+    <summary>I dati di chi sono? E i minori?</summary>
+    <p>I dati restano della società: noi li trattiamo solo per fornire il servizio, e li esportiamo su richiesta. Per i minori applichiamo il principio GDPR-K: consensi foto/video raccolti per ogni ragazzo, niente pubblicità né profilazione, accessi per ruolo. Dettagli in <a href="./gdpr-minori.html">GDPR-K minori</a> e <a href="./privacy.html">privacy</a>.</p>
+  </details>
+
+  <details>
+    <summary>Oggi usiamo Excel e WhatsApp. La migrazione è un dramma?</summary>
+    <p>No: l'onboarding del pilot lo facciamo insieme, col founder. Si parte dalle squadre e dagli atleti (bastano i dati che già avete) e in un pomeriggio la società è operativa. Setup tipico: meno di 15 minuti per la struttura iniziale.</p>
+  </details>
+
+  <details>
+    <summary>Come si diventa società pilot?</summary>
+    <p><a href="mailto:daniele@danieledeangeli.com?subject=CALCIO.OS%20%E2%80%94%20Candidatura%20pilot">Scrivici una mail</a> con nome della società e numero di atleti. Mezz'ora di demo online sulle vostre squadre, senza impegno: se vi convince, partite gratis per 3 mesi.</p>
+  </details>
+</main>
+
+<footer>
+  <div>© 2026 CALCIO.OS · Daniele Deangeli</div>
+  <div style="display:flex;gap:18px"><a href="./">Home</a><a href="./demo.html">Demo</a><a href="./roadmap.html">Roadmap</a><a href="./privacy.html">Privacy</a></div>
+</footer>
+
+</body>
+</html>

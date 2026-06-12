@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Documentazione · Guida rapida · CALCIO.OS</title>
+<meta name="description" content="Guida rapida CALCIO.OS: accesso, squadre, atleti, organigramma, pagelle, allenamenti e PWA staff. Dal primo login alla società operativa." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cyan-500:#06A8B5;--cyan-600:#058A95;--red-500:#D62828;--bg:#F4F6F9;--surface:#FFFFFF;--border:#E5E7EB;--text:#0F172A;--text-2:#475569;--text-3:#94A3B8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;line-height:1.15}
+.kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--red-500)}
+header.nav-glass{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(15,23,42,0.78);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:10px 22px;display:flex;align-items:center;gap:28px;box-shadow:0 8px 32px rgba(0,0,0,0.30)}
+header.nav-glass .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+header.nav-glass .header-logomark{height:28px;width:auto;display:block}
+header.nav-glass .header-wordmark{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+header.nav-glass .header-wordmark .text-cyan{color:#06A8B5}
+header.nav-glass .header-wordmark .text-red{color:#D62828}
+header.nav-glass nav{display:flex;gap:20px}
+header.nav-glass nav a{color:rgba(255,255,255,0.72);font-size:13.5px;font-weight:500;text-decoration:none}
+header.nav-glass nav a:hover{color:#fff}
+header.nav-glass .btn-pill{background:#fff;color:#0F172A;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.header-spacer{height:88px}
+.page{max-width:880px;margin:0 auto;padding:52px 24px 40px}
+.page h1{font-size:clamp(30px,4.5vw,44px);margin:8px 0 14px}
+.page .lead{font-size:17px;color:var(--text-2);max-width:680px;margin-bottom:8px}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 22px;margin:18px 0;font-size:14px}
+.toc a{color:var(--cyan-600);text-decoration:none;margin-right:14px;white-space:nowrap;line-height:2}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin:14px 0;box-shadow:0 6px 16px rgba(15,23,42,0.05)}
+.card h2{font-size:19px;margin-bottom:8px}
+.card h2 .n{color:var(--red-500);font-family:'JetBrains Mono',monospace;font-size:14px;margin-right:8px}
+.card p,.card li{color:var(--text-2)}
+.card ul,.card ol{padding-left:20px;margin:8px 0}
+.card li{margin:4px 0}
+.card a{color:var(--cyan-600)}
+.tip{border-left:3px solid var(--cyan-500);background:rgba(6,168,181,0.06);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:10px;font-size:14px;color:var(--text-2)}
+footer{max-width:880px;margin:0 auto;padding:28px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-3)}
+footer a{color:var(--text-2);text-decoration:none}
+@media (max-width:700px){header.nav-glass nav{display:none}}
+</style>
+</head>
+<body>
+
+<header class="nav-glass">
+  <a href="./" class="brand"><img src="./assets/logomark-transparent.png?v=2" alt="" class="header-logomark" /><span class="header-wordmark"><span class="text-cyan">CALCIO</span><span class="text-red">.OS</span></span></a>
+  <nav>
+    <a href="./#anime">Accademia</a><a href="./#genitori">Genitori</a><a href="./#pagelle">Bambino</a><a href="./#manifesto">Tesi</a><a href="./#pricing">Prezzi</a><a href="./demo.html">Demo</a><a href="https://admin.calcioos.com">Accedi</a>
+  </nav>
+  <a href="./#pricing" class="btn-pill">Richiedi demo</a>
+</header>
+<div class="header-spacer"></div>
+
+<main class="page">
+  <span class="kicker">Documentazione · Guida rapida</span>
+  <h1>Dal primo login alla società operativa.</h1>
+  <p class="lead">Sette passi, nell'ordine giusto. Nel pilot questi passi li facciamo insieme: la struttura iniziale richiede meno di 15 minuti.</p>
+
+  <nav class="toc">
+    <a href="#accesso">1. Accesso</a><a href="#squadre">2. Squadre</a><a href="#atleti">3. Atleti</a><a href="#organigramma">4. Organigramma</a><a href="#pagelle">5. Pagelle</a><a href="#allenamenti">6. Allenamenti</a><a href="#pwa">7. PWA staff</a>
+  </nav>
+
+  <div class="card" id="accesso">
+    <h2><span class="n">01</span>Accesso</h2>
+    <p>La dashboard della società è su <a href="https://admin.calcioos.com">admin.calcioos.com</a>: entra con l'email e la password ricevute all'attivazione. Funziona da qualsiasi browser, senza installare nulla.</p>
+    <div class="tip">Siamo in beta: dopo un aggiornamento della piattaforma può capitare di dover rifare il login. È normale.</div>
+  </div>
+
+  <div class="card" id="squadre">
+    <h2><span class="n">02</span>Squadre</h2>
+    <p>Da <strong>Squadre → Nuova squadra</strong>: nome, categoria (da Piccoli Amici a Juniores), anno, colore. La categoria conta davvero: decide il livello delle pagelle e le regole d'allenamento del settore di base.</p>
+  </div>
+
+  <div class="card" id="atleti">
+    <h2><span class="n">03</span>Atleti</h2>
+    <p>Da <strong>Atleti → Nuovo atleta</strong> parte il percorso guidato «famiglia-prima»: dati del ragazzo, genitori (email, telefono, codice fiscale), <strong>consensi foto/video</strong>, taglie kit e squadra. Nella scheda di ogni atleta trovi documenti con scadenze, famiglia, tesseramento, pagelle e storico modifiche.</p>
+    <ul>
+      <li><strong>Documenti</strong>: carichi certificati e moduli; la segreteria li verifica e il sistema tiene d'occhio le scadenze.</li>
+      <li><strong>Scadenzario in Home</strong>: ogni mattina vedi documenti da verificare, certificati in scadenza e taglie mancanti.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="organigramma">
+    <h2><span class="n">04</span>Organigramma</h2>
+    <p>Da <strong>Organigramma → Aggiungi membro</strong> inserisci lo staff con il ruolo reale: direzione, segreteria, mister, secondo allenatore, team manager, preparatori. Assegni le squadre a ogni persona — e il ruolo in squadra deriva dall'organigramma, senza doppioni.</p>
+  </div>
+
+  <div class="card" id="pagelle">
+    <h2><span class="n">05</span>Pagelle</h2>
+    <p>Da <strong>Pagelle → Crea per squadra</strong>: il sistema sceglie da solo il livello giusto per categoria — quattro voci semplici fino ai Pulcini, le 14 voci ufficiali in tre aree dagli Esordienti. Il flusso è: il mister compila la bozza → la invia → la direzione tecnica approva (o rimanda con nota) → pubblicata, con PDF.</p>
+    <div class="tip">La stagione è divisa in tre trimestri reali (set–dic, gen–mar, apr–giu) più la vista «Anno finale».</div>
+  </div>
+
+  <div class="card" id="allenamenti">
+    <h2><span class="n">06</span>Allenamenti</h2>
+    <p>Da <strong>Allenamenti</strong> crei il piano della settimana (data + tema) e componi le sedute a blocchi pescando dalla <strong>libreria: 21 esercizi FIGC illustrati</strong> con diagramma in notazione federale, foto, obiettivi, svolgimento, varianti e materiali. Ogni esercizio si può duplicare e personalizzare; l'indicatore di carico somma i minuti della seduta.</p>
+    <div class="tip">Nel settore di base il sistema applica il limite federale: massimo 3 sedute a settimana. La quarta viene bloccata, con spiegazione.</div>
+  </div>
+
+  <div class="card" id="pwa">
+    <h2><span class="n">07</span>PWA staff (il telefono del mister)</h2>
+    <ol>
+      <li>Dal telefono apri <a href="https://app.calcioos.com">app.calcioos.com</a> ed entra col tuo account staff.</li>
+      <li>Dal menu del browser scegli <strong>«Aggiungi a schermata Home»</strong>: da quel momento si apre come un'app.</li>
+    </ol>
+    <p>Dentro trovi: <strong>Sedute</strong> della settimana con i diagrammi dei blocchi, <strong>Esercizi</strong> (la libreria, più i tuoi: foto dal telefono e video registrati con la fotocamera, clip 15–30 secondi), <strong>Pagella rapida</strong> per compilare le voci a bordo campo, squadra e presenze.</p>
+  </div>
+
+  <p style="color:var(--text-3);font-size:13px;margin-top:18px">Serve una mano? <a href="mailto:daniele@danieledeangeli.com?subject=CALCIO.OS%20%E2%80%94%20Supporto" style="color:var(--cyan-600)">Scrivici</a> — supporto diretto in italiano. Guida aggiornata al 12 giugno 2026.</p>
+</main>
+
+<footer>
+  <div>© 2026 CALCIO.OS · Daniele Deangeli</div>
+  <div style="display:flex;gap:18px"><a href="./">Home</a><a href="./demo.html">Demo</a><a href="./faq.html">FAQ</a><a href="./roadmap.html">Roadmap</a></div>
+</footer>
+
+</body>
+</html>

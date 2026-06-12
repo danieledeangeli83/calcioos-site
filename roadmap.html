@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Roadmap pubblica · CALCIO.OS</title>
+<meta name="description" content="Cosa c'è oggi in CALCIO.OS, cosa è in sviluppo e cosa arriva dopo. Aggiornata e onesta." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cyan-500:#06A8B5;--cyan-600:#058A95;--red-500:#D62828;--bg:#F4F6F9;--surface:#FFFFFF;--border:#E5E7EB;--text:#0F172A;--text-2:#475569;--text-3:#94A3B8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--bg)}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;line-height:1.15}
+.kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--red-500)}
+header.nav-glass{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;background:rgba(15,23,42,0.78);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:10px 22px;display:flex;align-items:center;gap:28px;box-shadow:0 8px 32px rgba(0,0,0,0.30)}
+header.nav-glass .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+header.nav-glass .header-logomark{height:28px;width:auto;display:block}
+header.nav-glass .header-wordmark{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+header.nav-glass .header-wordmark .text-cyan{color:#06A8B5}
+header.nav-glass .header-wordmark .text-red{color:#D62828}
+header.nav-glass nav{display:flex;gap:20px}
+header.nav-glass nav a{color:rgba(255,255,255,0.72);font-size:13.5px;font-weight:500;text-decoration:none}
+header.nav-glass nav a:hover{color:#fff}
+header.nav-glass .btn-pill{background:#fff;color:#0F172A;padding:9px 20px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.header-spacer{height:88px}
+.page{max-width:880px;margin:0 auto;padding:52px 24px 40px}
+.page h1{font-size:clamp(30px,4.5vw,44px);margin:8px 0 14px}
+.page .lead{font-size:17px;color:var(--text-2);max-width:680px;margin-bottom:8px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin:18px 0;box-shadow:0 6px 16px rgba(15,23,42,0.05)}
+.card h2{font-size:20px;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.card .sub{color:var(--text-3);font-size:13px;margin-bottom:12px}
+.card ul{padding-left:20px;color:var(--text-2)}
+.card li{margin:6px 0}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.ok{background:#16A34A}.dot.dev{background:var(--cyan-500)}.dot.next{background:#D97706}
+.note{color:var(--text-3);font-size:13px;margin-top:20px}
+footer{max-width:880px;margin:0 auto;padding:28px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-3)}
+footer a{color:var(--text-2);text-decoration:none}
+@media (max-width:700px){header.nav-glass nav{display:none}}
+</style>
+</head>
+<body>
+
+<header class="nav-glass">
+  <a href="./" class="brand"><img src="./assets/logomark-transparent.png?v=2" alt="" class="header-logomark" /><span class="header-wordmark"><span class="text-cyan">CALCIO</span><span class="text-red">.OS</span></span></a>
+  <nav>
+    <a href="./#anime">Accademia</a><a href="./#genitori">Genitori</a><a href="./#pagelle">Bambino</a><a href="./#manifesto">Tesi</a><a href="./#pricing">Prezzi</a><a href="./demo.html">Demo</a><a href="https://admin.calcioos.com">Accedi</a>
+  </nav>
+  <a href="./#pricing" class="btn-pill">Richiedi demo</a>
+</header>
+<div class="header-spacer"></div>
+
+<main class="page">
+  <span class="kicker">Roadmap pubblica</span>
+  <h1>Cosa c'è. Cosa arriva.</h1>
+  <p class="lead">Questa roadmap dice la verità: distingue ciò che è già in piattaforma da ciò che stiamo costruendo. Niente date promesse e non mantenute — l'ordine è quello reale di sviluppo.</p>
+
+  <div class="card">
+    <h2><span class="dot ok"></span>Disponibile oggi · beta</h2>
+    <div class="sub">In piattaforma, lo vedi nella <a href="./demo.html">demo dal vivo</a>.</div>
+    <ul>
+      <li><strong>Dashboard società</strong> — squadre, atleti con anagrafica famiglia-prima (consensi foto/video GDPR-K), documenti e certificati con scadenze controllate, scadenzario in home, organigramma con i ruoli reali.</li>
+      <li><strong>Pagelle educative a 2 livelli</strong> — fino ai Pulcini quattro voci semplici; dagli Esordienti le 14 voci ufficiali in tre aree. Trimestrali, con approvazione della direzione tecnica e PDF.</li>
+      <li><strong>Allenamenti</strong> — piani settimanali a blocchi, libreria di 21 esercizi FIGC illustrati (diagrammi in notazione federale + foto), vincolo del settore di base (max 3 sedute/settimana) applicato dal sistema.</li>
+      <li><strong>PWA staff</strong> — sedute con diagrammi sul telefono, esercizi del mister con foto e video registrati con la fotocamera, pagella rapida a bordo campo.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot dev"></span>In sviluppo</h2>
+    <div class="sub">Ci stiamo lavorando adesso.</div>
+    <ul>
+      <li>Rifinitura di calendario, programma gare e sala meeting.</li>
+      <li>Permessi per ruolo applicati lato server (ogni ruolo vede e fa solo il suo).</li>
+      <li>Inviti email reali per staff e genitori.</li>
+      <li>Pagella rapida unificata: dal telefono le stesse voci della pagella completa.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot next"></span>In arrivo</h2>
+    <div class="sub">Prossimi blocchi, nell'ordine in cui li affronteremo.</div>
+    <ul>
+      <li><strong>App genitori</strong> (gratis per le famiglie): pagelle, calendario del figlio, chat con la società, multi-figlio. Obiettivo stagione 2026/27.</li>
+      <li><strong>Pagamenti</strong>: quote e rate, scadenze, poi fatturazione SDI.</li>
+      <li>Notifiche push reali su telefono.</li>
+      <li>Match stats e scouting (piani Pro / Pro Youth).</li>
+      <li>AI che prepara la bozza della pagella dai dati raccolti (il mister resta chi firma).</li>
+    </ul>
+  </div>
+
+  <p class="note">Aggiornata al 12 giugno 2026. Le voci «in arrivo» sono incluse nei piani senza costi extra quando escono. Vuoi pesare su una priorità? <a href="mailto:daniele@danieledeangeli.com?subject=CALCIO.OS%20%E2%80%94%20Roadmap">Scrivici</a>.</p>
+</main>
+
+<footer>
+  <div>© 2026 CALCIO.OS · Daniele Deangeli</div>
+  <div style="display:flex;gap:18px"><a href="./">Home</a><a href="./demo.html">Demo</a><a href="./privacy.html">Privacy</a><a href="./termini.html">Termini</a></div>
+</footer>
+
+</body>
+</html>
