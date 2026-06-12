@@ -70,9 +70,9 @@ footer a{color:var(--text-2);text-decoration:none}
     <div><div class="name">App staff (PWA)</div><div class="url">app.calcioos.com</div></div>
     <span class="state"><span class="dot"></span><span class="label">verifica…</span></span>
   </div>
-  <div class="svc" data-check="https://calcioos-api-production.up.railway.app/api/v1/health">
-    <div><div class="name">API</div><div class="url">/api/v1/health</div></div>
-    <span class="state"><span class="dot"></span><span class="label">verifica…</span></span>
+  <div class="svc">
+    <div><div class="name">API</div><div class="url">calcioos-api · /api/v1/health</div></div>
+    <span class="state"><a href="https://calcioos-api-production.up.railway.app/api/v1/health" target="_blank" rel="noopener" style="color:var(--cyan-600);text-decoration:none;font-weight:600">controlla adesso →</a></span>
   </div>
 
   <p class="note">Ultimo controllo: <span id="ts">—</span> · <a href="javascript:location.reload()">ricontrolla</a> · dettaglio tecnico API: <a href="https://calcioos-api-production.up.railway.app/api/v1/health" target="_blank" rel="noopener">health JSON</a>.<br>In beta i rilasci avvengono di frequente: durante un aggiornamento può servire ri-effettuare il login.</p>
@@ -85,7 +85,7 @@ footer a{color:var(--text-2);text-decoration:none}
 
 <script>
 document.getElementById('ts').textContent = new Date().toLocaleString('it-IT');
-document.querySelectorAll('.svc').forEach(function(el){
+document.querySelectorAll('.svc[data-check]').forEach(function(el){
   var url = el.getAttribute('data-check') + (el.getAttribute('data-check').indexOf('?')>-1?'&':'?') + 'ping=' + Date.now();
   var dot = el.querySelector('.dot'), label = el.querySelector('.label');
   var done = false;
