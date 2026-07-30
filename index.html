@@ -916,6 +916,127 @@
   .pricing-disclaimer a { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
 
   /* MANIFESTO section — Le Pagelle del Calcio */
+  /* ---------- candidature al pilota (30/07/2026) ---------- */
+  .pilot-section { position: relative; background: transparent; padding: 130px 0 140px; overflow: hidden; }
+  @media (min-width: 768px) { .pilot-section { padding: 180px 0 190px; } }
+  .pilot-section::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 45% at 50% 0%, rgba(6,168,181,0.09) 0%, transparent 62%),
+      radial-gradient(ellipse 60% 40% at 88% 100%, rgba(214,40,40,0.06) 0%, transparent 58%);
+  }
+  .pilot-container { position: relative; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  @media (min-width: 768px) { .pilot-container { padding: 0 40px; } }
+  .pilot-header { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+  .pilot-lede { margin-top: 24px; color: rgba(255,255,255,0.66); font-size: clamp(15px,1.35vw,17.5px); line-height: 1.6; }
+  .pilot-lede strong { color: #fff; font-weight: 600; }
+
+  /* contatore posti */
+  .pilot-meter { margin-top: 34px; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .pilot-meter-bar {
+    height: 8px; border-radius: 999px; overflow: hidden;
+    background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.1);
+  }
+  .pilot-meter-bar span {
+    display: block; height: 100%; width: 0;
+    background: linear-gradient(90deg, var(--cyan), #6fe3ec);
+    transition: width 900ms cubic-bezier(.2,.8,.2,1);
+  }
+  .pilot-meter.is-full .pilot-meter-bar span { background: linear-gradient(90deg, var(--red), #ff6b6b); }
+  /* posti non noti: nessuna barra, per non far sembrare un dato una stima */
+  .pilot-meter.is-unknown .pilot-meter-bar { display: none; }
+  .pilot-meter-txt {
+    margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.04em; color: rgba(255,255,255,0.62);
+  }
+  .pilot-meter-txt b { color: #fff; font-weight: 600; }
+
+  .pilot-grid { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: start; }
+  @media (min-width: 980px) { .pilot-grid { grid-template-columns: 1fr 1.05fr; gap: 40px; } }
+
+  /* passi */
+  .pilot-step { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .pilot-step:first-child { padding-top: 0; }
+  .pilot-step-n {
+    flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+    color: var(--cyan); background: rgba(6,168,181,0.1); border: 1px solid rgba(6,168,181,0.35);
+  }
+  .pilot-step h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.015em; }
+  .pilot-step p { margin-top: 6px; font-size: 13.5px; line-height: 1.58; color: rgba(255,255,255,0.6); }
+
+  .pilot-direct { margin-top: 28px; padding: 20px 22px; border-radius: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+  .pilot-direct-t { font-size: 13px; color: rgba(255,255,255,0.66); }
+  .pilot-wa {
+    margin-top: 12px; display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 14.5px; color: #06231f;
+    background: #25D366; transition: transform .25s ease, box-shadow .25s ease;
+    box-shadow: 0 10px 26px -12px rgba(37,211,102,0.7);
+  }
+  .pilot-wa:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -12px rgba(37,211,102,0.8); }
+  .pilot-wa svg { width: 19px; height: 19px; }
+  .pilot-direct-s { margin-top: 12px; font-size: 12.5px; color: rgba(255,255,255,0.5); }
+  .pilot-direct-s a { color: rgba(255,255,255,0.78); }
+
+  /* modulo */
+  .pilot-form-card {
+    padding: 28px 26px 26px; border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.11);
+    box-shadow: 0 40px 90px -40px rgba(0,0,0,0.8);
+  }
+  @media (min-width: 768px) { .pilot-form-card { padding: 34px 32px 30px; } }
+  .pilot-form-h { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+  .pilot-form-s { margin-top: 6px; font-size: 13px; color: rgba(255,255,255,0.56); margin-bottom: 22px; }
+  .pilot-field { display: block; margin-bottom: 14px; }
+  .pilot-field > span { display: block; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.72); margin-bottom: 6px; }
+  .pilot-field > span i { color: var(--red); font-style: normal; }
+  .pilot-field input, .pilot-field textarea {
+    width: 100%; padding: 11px 13px; border-radius: 10px;
+    background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.13);
+    color: #fff; font-family: inherit; font-size: 14.5px; line-height: 1.4;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .pilot-field textarea { resize: vertical; min-height: 74px; }
+  .pilot-field input::placeholder, .pilot-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .pilot-field input:focus, .pilot-field textarea:focus {
+    outline: none; border-color: rgba(6,168,181,0.7); background: rgba(0,0,0,0.4);
+  }
+  .pilot-field input:user-invalid { border-color: rgba(214,40,40,0.65); }
+  .pilot-row { display: grid; grid-template-columns: 1fr; gap: 0 14px; }
+  @media (min-width: 560px) { .pilot-row { grid-template-columns: 1fr 1fr; } }
+
+  .pilot-submit {
+    width: 100%; margin-top: 8px; padding: 15px 20px; border: 0; border-radius: 999px;
+    background: var(--red); color: #fff; font-family: inherit; font-size: 15.5px; font-weight: 600;
+    cursor: pointer; transition: background .2s ease, transform .2s ease;
+  }
+  .pilot-submit:hover:not(:disabled) { background: #b91e1e; transform: translateY(-1px); }
+  .pilot-submit:disabled { opacity: .55; cursor: default; }
+  .pilot-msg { margin-top: 14px; font-size: 13.5px; line-height: 1.55; display: none; }
+  .pilot-msg.is-on { display: block; }
+  .pilot-msg.ok { color: #6fe3ec; }
+  .pilot-msg.warn { color: #ffd166; }
+  .pilot-msg.err { color: #ff8b8b; }
+  .pilot-privacy { margin-top: 14px; font-size: 11.5px; line-height: 1.5; color: rgba(255,255,255,0.4); }
+  .pilot-privacy a { color: rgba(255,255,255,0.6); }
+
+  /* bottone WhatsApp sempre visibile */
+  .wa-float {
+    position: fixed; right: 20px; bottom: 20px; z-index: 90;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #25D366; color: #06231f; text-decoration: none;
+    box-shadow: 0 12px 30px -8px rgba(0,0,0,0.6);
+    transition: transform .25s ease;
+  }
+  .wa-float:hover { transform: scale(1.07); }
+  .wa-float svg { width: 27px; height: 27px; }
+  @media (min-width: 768px) { .wa-float { right: 28px; bottom: 28px; } }
+  @media print { .wa-float { display: none; } }
+
   .manifesto-section { position: relative; padding: 160px 0 180px; overflow: hidden; }
   @media (min-width: 768px) { .manifesto-section { padding: 220px 0 240px; } }
   .manifesto-section::before {
@@ -1838,6 +1959,137 @@
   </div>
 </section>
 
+<!-- ============================================================================
+     CANDIDATURE AL PILOTA — colloquio + onboarding, posti chiusi.
+     Il contatore dei posti NON e' scritto qui dentro: arriva da
+     GET /pilot/posti, cosi' non resta indietro quando una societa' entra.
+     Se l'API non risponde, la sezione non si blocca: mostra WhatsApp e mail.
+     ============================================================================ -->
+<section id="candidatura" class="pilot-section">
+  <div class="pilot-container">
+
+    <div class="pilot-header">
+      <div class="kicker">Stagione 2026/27 · Posti limitati</div>
+      <h2 class="font-display font-bold leading-none tracking-tight" style="font-size:clamp(40px,5.4vw,72px); margin-top:24px; color:#fff;">
+        Venti squadre.<br><span class="text-cyan">Poi si chiude.</span>
+      </h2>
+      <p class="pilot-lede">
+        Il pilota di questa stagione è aperto a <strong>20 squadre in tutto</strong> — non 20 società: 20 squadre.
+        Vuol dire che possiamo seguirvi davvero, uno per uno. Prenoti un colloquio di venti minuti,
+        capiamo se ha senso, e se sì carichiamo noi i vostri tesserati.
+      </p>
+
+      <div class="pilot-meter" id="pilot-meter" aria-live="polite">
+        <div class="pilot-meter-bar"><span id="pilot-bar" style="width:0%"></span></div>
+        <div class="pilot-meter-txt" id="pilot-txt">Controllo i posti disponibili…</div>
+      </div>
+    </div>
+
+    <div class="pilot-grid">
+
+      <!-- COSA SUCCEDE -->
+      <div class="pilot-steps">
+        <div class="pilot-step">
+          <span class="pilot-step-n">1</span>
+          <div>
+            <h3>Prenoti il colloquio</h3>
+            <p>Compili il modulo qui accanto. Ti richiamo io, non un centralino. Venti minuti, in videochiamata o al telefono.</p>
+          </div>
+        </div>
+        <div class="pilot-step">
+          <span class="pilot-step-n">2</span>
+          <div>
+            <h3>Ci mandi il file che hai già</h3>
+            <p>L'elenco dei tesserati in Excel, l'esportazione del gestionale che usi adesso, anche una lista scritta a mano.</p>
+          </div>
+        </div>
+        <div class="pilot-step">
+          <span class="pilot-step-n">3</span>
+          <div>
+            <h3>Carichiamo noi</h3>
+            <p>Squadre, ragazzi, genitori. La tua segreteria non inserisce nulla: zero ore di lavoro.</p>
+          </div>
+        </div>
+        <div class="pilot-step">
+          <span class="pilot-step-n">4</span>
+          <div>
+            <h3>Entri e lo usi</h3>
+            <p>Trovi la tua società già dentro. Gratis per tutta la stagione. Se non ti serve, esci quando vuoi.</p>
+          </div>
+        </div>
+
+        <div class="pilot-direct">
+          <div class="pilot-direct-t">Preferisci scrivere due righe?</div>
+          <a class="pilot-wa" href="https://wa.me/393895778191?text=Ciao%20Daniele%2C%20ci%20interessa%20provare%20CALCIO.OS%20per%20la%20nostra%20scuola%20calcio." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.13-.42-2.15-1.33-.79-.71-1.33-1.58-1.48-1.88-.15-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.03 1.01-1.03 2.45 0 1.45 1.06 2.85 1.2 3.05.15.2 2.08 3.18 5.04 4.35 2.96 1.16 2.96.77 3.5.72.53-.05 1.73-.71 1.97-1.4.25-.68.25-1.26.17-1.38-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.36 9.36 0 01-1.43-4.99c0-5.17 4.22-9.38 9.41-9.38a9.35 9.35 0 016.64 2.75 9.28 9.28 0 012.75 6.63c0 5.18-4.22 9.4-9.4 9.4zM20.52 3.45A11.2 11.2 0 0012.04 0C5.75 0 .63 5.11.63 11.39c0 2 .52 3.96 1.52 5.69L0 24l7.1-1.86a11.4 11.4 0 004.94 1.13h.01c6.28 0 11.4-5.11 11.4-11.39a11.3 11.3 0 00-2.93-8.43z"/></svg>
+            WhatsApp · 389 577 8191
+          </a>
+          <div class="pilot-direct-s">Oppure <a href="mailto:daniele@danieledeangeli.com?subject=CALCIO.OS%20%E2%80%94%20Candidatura%20pilot">daniele@danieledeangeli.com</a></div>
+        </div>
+      </div>
+
+      <!-- MODULO -->
+      <div class="pilot-form-card">
+        <form id="pilot-form" novalidate>
+          <div class="pilot-form-h">Prenota il colloquio</div>
+          <div class="pilot-form-s">Ti risponde Daniele. Nessuna carta di credito, nessun impegno.</div>
+
+          <label class="pilot-field">
+            <span>Società <i>*</i></span>
+            <input name="societa" type="text" required minlength="2" maxlength="120" autocomplete="organization" placeholder="ASD Fortitudo Calcio">
+          </label>
+
+          <div class="pilot-row">
+            <label class="pilot-field">
+              <span>Chi sei <i>*</i></span>
+              <input name="referente" type="text" required minlength="2" maxlength="120" autocomplete="name" placeholder="Nome e cognome">
+            </label>
+            <label class="pilot-field">
+              <span>Città</span>
+              <input name="citta" type="text" maxlength="80" autocomplete="address-level2" placeholder="Roma">
+            </label>
+          </div>
+
+          <div class="pilot-row">
+            <label class="pilot-field">
+              <span>Email <i>*</i></span>
+              <input name="email" type="email" required maxlength="160" autocomplete="email" placeholder="segreteria@tuasocieta.it">
+            </label>
+            <label class="pilot-field">
+              <span>Telefono <i>*</i></span>
+              <input name="telefono" type="tel" required minlength="6" maxlength="32" autocomplete="tel" placeholder="340 1234567">
+            </label>
+          </div>
+
+          <div class="pilot-row">
+            <label class="pilot-field">
+              <span>Quante squadre <i>*</i></span>
+              <input name="squadre" type="number" required min="1" max="20" step="1" placeholder="4">
+            </label>
+            <label class="pilot-field">
+              <span>Quali categorie</span>
+              <input name="categorie" type="text" maxlength="200" placeholder="Pulcini, Esordienti">
+            </label>
+          </div>
+
+          <label class="pilot-field">
+            <span>Vuoi aggiungere qualcosa</span>
+            <textarea name="note" rows="3" maxlength="1500" placeholder="Come vi organizzate oggi, cosa vi serve di più…"></textarea>
+          </label>
+
+          <button type="submit" class="pilot-submit" id="pilot-submit">Prenota il colloquio</button>
+          <div class="pilot-msg" id="pilot-msg" role="status" aria-live="polite"></div>
+          <div class="pilot-privacy">
+            Usiamo questi dati solo per ricontattarti su CALCIO.OS. Nessuna newsletter, nessuna condivisione con terzi.
+            <a href="privacy.html">Informativa</a>.
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- MANIFESTO SECTION — Tesi 'Le Pagelle del Calcio' -->
 <section id="manifesto" class="manifesto-section">
   <div class="manifesto-container">
@@ -2371,6 +2623,122 @@ document.querySelectorAll('.nav-anchor[href^="#"]').forEach(a => {
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   lenis.destroy();
 }
+</script>
+<!-- WhatsApp sempre a portata di pollice -->
+<a class="wa-float" href="https://wa.me/393895778191?text=Ciao%20Daniele%2C%20ci%20interessa%20provare%20CALCIO.OS%20per%20la%20nostra%20scuola%20calcio." target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.13-.42-2.15-1.33-.79-.71-1.33-1.58-1.48-1.88-.15-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.03 1.01-1.03 2.45 0 1.45 1.06 2.85 1.2 3.05.15.2 2.08 3.18 5.04 4.35 2.96 1.16 2.96.77 3.5.72.53-.05 1.73-.71 1.97-1.4.25-.68.25-1.26.17-1.38-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.36 9.36 0 01-1.43-4.99c0-5.17 4.22-9.38 9.41-9.38a9.35 9.35 0 016.64 2.75 9.28 9.28 0 012.75 6.63c0 5.18-4.22 9.4-9.4 9.4zM20.52 3.45A11.2 11.2 0 0012.04 0C5.75 0 .63 5.11.63 11.39c0 2 .52 3.96 1.52 5.69L0 24l7.1-1.86a11.4 11.4 0 004.94 1.13h.01c6.28 0 11.4-5.11 11.4-11.39a11.3 11.3 0 00-2.93-8.43z"/></svg>
+</a>
+
+<script>
+/* ============================================================================
+   Candidature al pilota.
+   L'API sta su admin.calcioos.com (dominio nostro, CORS verificato per
+   calcioos.com: preflight OPTIONS 204 con POST e Content-Type ammessi).
+   Se l'API non risponde la sezione NON si rompe: il modulo resta usabile e in
+   fondo ci sono sempre WhatsApp e la mail.
+   ============================================================================ */
+(function () {
+  var API = 'https://admin.calcioos.com/api/v1';
+  var TOT = 20;
+
+  var meter = document.getElementById('pilot-meter');
+  var bar = document.getElementById('pilot-bar');
+  var txt = document.getElementById('pilot-txt');
+  var form = document.getElementById('pilot-form');
+  var btn = document.getElementById('pilot-submit');
+  var msg = document.getElementById('pilot-msg');
+  if (!form || !btn || !msg) return;
+
+  function dimmi(testo, tipo) {
+    msg.textContent = testo;
+    msg.className = 'pilot-msg is-on ' + (tipo || 'ok');
+  }
+
+  function mostraPosti(d) {
+    var tot = (d && d.totale) || TOT;
+    var rimasti = d && typeof d.rimasti === 'number' ? d.rimasti : null;
+    if (rimasti === null) {
+      // Nessun dato dall'API: la barra resta vuota e NON si inventa una
+      // percentuale, che sembrerebbe un conteggio vero.
+      meter.classList.add('is-unknown');
+      txt.innerHTML = 'Pilota stagione 2026/27 · <b>' + tot + ' squadre</b> in tutto';
+      return;
+    }
+    meter.classList.remove('is-unknown');
+    var occupati = tot - rimasti;
+    bar.style.width = Math.max(4, Math.round((occupati / tot) * 100)) + '%';
+    if (rimasti === 0) {
+      meter.classList.add('is-full');
+      txt.innerHTML = 'Posti esauriti · <b>lista d’attesa aperta</b> per la stagione 2026/27';
+    } else {
+      txt.innerHTML = 'Restano <b>' + rimasti + ' squadre</b> su ' + tot + ' · stagione 2026/27';
+    }
+  }
+
+  fetch(API + '/pilot/posti', { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(mostraPosti)
+    .catch(function () { mostraPosti(null); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      dimmi('Controlla i campi contrassegnati: manca qualcosa o non è nel formato giusto.', 'err');
+      form.querySelectorAll(':invalid')[0].focus();
+      return;
+    }
+
+    var f = new FormData(form);
+    var dati = {
+      societa: (f.get('societa') || '').trim(),
+      referente: (f.get('referente') || '').trim(),
+      email: (f.get('email') || '').trim(),
+      telefono: (f.get('telefono') || '').trim(),
+      squadre: Number(f.get('squadre')),
+      citta: (f.get('citta') || '').trim() || undefined,
+      categorie: (f.get('categorie') || '').trim() || undefined,
+      note: (f.get('note') || '').trim() || undefined,
+      fonte: 'sito-candidatura'
+    };
+
+    btn.disabled = true;
+    var testoOrig = btn.textContent;
+    btn.textContent = 'Invio…';
+    dimmi('Un momento…', 'ok');
+
+    fetch(API + '/pilot/candidatura', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dati)
+    })
+      .then(function (r) {
+        return r.json().then(function (j) { return { status: r.status, body: j }; });
+      })
+      .then(function (res) {
+        if (res.status === 201) {
+          form.reset();
+          btn.textContent = 'Richiesta inviata';
+          dimmi(res.body && res.body.messaggio
+            ? res.body.messaggio
+            : 'Candidatura ricevuta. Ti scrivo io per fissare il colloquio.',
+            res.body && res.body.listaAttesa ? 'warn' : 'ok');
+          fetch(API + '/pilot/posti').then(function (r) { return r.json(); }).then(mostraPosti).catch(function () {});
+          return;
+        }
+        if (res.status === 429) {
+          btn.disabled = false; btn.textContent = testoOrig;
+          dimmi('Troppi invii di fila. Aspetta un minuto, oppure scrivimi su WhatsApp: fa lo stesso.', 'warn');
+          return;
+        }
+        btn.disabled = false; btn.textContent = testoOrig;
+        dimmi('Qualcosa non è andato con i dati inviati. Ricontrolla email e telefono, o scrivimi su WhatsApp.', 'err');
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = testoOrig;
+        dimmi('Non riesco a raggiungere il server in questo momento. Scrivimi su WhatsApp al 389 577 8191: ti rispondo io.', 'err');
+      });
+  });
+})();
 </script>
 </body>
 </html>
