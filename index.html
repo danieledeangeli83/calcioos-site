@@ -1195,9 +1195,13 @@
   }
   .footer-made-in .it-flag span { display: inline-block; width: 4px; height: 10px; }
 
-  /* scroll-up floating button — back to top */
+  /* scroll-up floating button — back to top.
+     Sta SOPRA il bottone WhatsApp, non accanto: erano entrambi fissi in basso
+     a destra quasi nello stesso punto (WhatsApp 56px z-90, questo 48px z-40),
+     quindi il torna-su spariva sotto. Il right e' 24 = 20 + (56-48)/2, cioe'
+     i due cerchi restano sullo stesso asse verticale. */
   .scroll-up-btn {
-    position: fixed; bottom: 24px; right: 24px;
+    position: fixed; bottom: 88px; right: 24px;
     width: 48px; height: 48px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--cyan), var(--red));
@@ -1205,7 +1209,7 @@
     border: 1px solid rgba(255,255,255,0.18);
     display: inline-flex; align-items: center; justify-content: center;
     cursor: pointer;
-    z-index: 40;
+    z-index: 91;
     box-shadow:
       0 12px 30px -8px rgba(214,40,40,0.45),
       0 6px 16px -4px rgba(6,168,181,0.3),
@@ -1232,7 +1236,9 @@
   }
   .scroll-up-btn svg { width: 20px; height: 20px; stroke-width: 2.4; }
   @media (min-width: 768px) {
-    .scroll-up-btn { bottom: 32px; right: 32px; width: 56px; height: 56px; }
+    /* Da tablet in su WhatsApp sta a bottom 28 ed e' alto 56: questo va sopra,
+       con 12px di respiro. Stessa larghezza, quindi stesso right. */
+    .scroll-up-btn { bottom: 96px; right: 28px; width: 56px; height: 56px; }
     .scroll-up-btn svg { width: 22px; height: 22px; }
   }
 
@@ -2332,6 +2338,11 @@ function onFrameLoad() {
   if (!revealed) {
     if (loadedCount >= REVEAL_AFTER) revealSite();
     else if (loadedCount % 8 === 0) drawFrame(Math.min(loadedCount - 1, FRAME_COUNT - 1));
+  } else {
+    // Sito gia' visibile: ogni fotogramma che arriva ridisegna il punto in cui
+    // ci si trova adesso. Cosi' se si e' scorsi in una zona non ancora
+    // caricata, l'immagine si affina da sola invece di restare ferma.
+    render();
   }
   if (loadedCount === FRAME_COUNT) ScrollTrigger.refresh();
 }
@@ -2349,10 +2360,29 @@ setTimeout(() => {
   setTimeout(revealSite, REVEAL_TIMEOUT);
 }, 300);
 
+function framePronto(i) {
+  const img = frames[i];
+  return !!img && img.complete && img.naturalWidth > 0;
+}
+
+/* Il fotogramma chiesto puo' non essere ancora arrivato: #hero e' alto 900vh,
+ * quindi si puo' scorrere dentro una zona non caricata. Il canvas e' opaco:
+ * non disegnare vuol dire mostrare NERO per schermate intere. Si ripiega sul
+ * fotogramma disponibile piu' vicino — l'animazione risulta a scatti finche'
+ * non arriva il resto, che e' incomparabilmente meglio del buio. */
+function frameDisponibile(idx) {
+  if (framePronto(idx)) return idx;
+  for (let d = 1; d < FRAME_COUNT; d++) {
+    if (idx - d >= 0 && framePronto(idx - d)) return idx - d;
+    if (idx + d < FRAME_COUNT && framePronto(idx + d)) return idx + d;
+  }
+  return -1;
+}
+
 function drawFrame(idx) {
-  const img = frames[idx];
-  if (!img || !img.complete || img.naturalWidth === 0) return;
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  const scelto = frameDisponibile(idx);
+  if (scelto < 0) return;
+  ctx.drawImage(frames[scelto], 0, 0, canvas.width, canvas.height);
 }
 
 function render() {
